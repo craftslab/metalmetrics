@@ -1,0 +1,17 @@
+metadata:
+  name: metalmetrics
+spec:
+  bare:
+  - cpu
+  - disk
+  - io
+  - ip
+  - kernel
+  - mac
+  - network
+  - os
+  - process
+  - ram
+  - ssh
+  container:
+  kubernetes:
