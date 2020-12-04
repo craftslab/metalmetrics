@@ -103,4 +103,5 @@ Project License can be found [here](LICENSE).
 
 ## Reference
 
+- [health-check-script](https://github.com/SimplyLinuxFAQ/health-check-script)
 - [python-diamond](https://github.com/python-diamond/Diamond)
