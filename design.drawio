@@ -1,4 +1,4 @@
-<mxfile host="65bd71144e" modified="2020-12-01T03:19:09.313Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.51.1 Chrome/83.0.4103.122 Electron/9.3.3 Safari/537.36" etag="SecbapcA_ZIcU-GE_Wi7" version="13.6.5">
+<mxfile host="65bd71144e" modified="2020-12-04T02:50:02.081Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.51.1 Chrome/83.0.4103.122 Electron/9.3.3 Safari/537.36" etag="K7IoaagR6DMBgOj2oxLY" version="13.6.5">
     <diagram id="6hGFLwfOUW9BJ-s0fimq" name="Page-1">
         <mxGraphModel dx="1422" dy="812" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
             <root>
@@ -16,7 +16,7 @@
                 <mxCell id="19" value="METAL BEAT&lt;br&gt;(AGENT)" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="190" y="500" width="100" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="20" value="BARE METRICS&lt;br&gt;(METRICS)" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                <mxCell id="20" value="METAL METRICS&lt;br&gt;(METRICS)" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="340" y="480" width="170" height="100" as="geometry"/>
                 </mxCell>
                 <mxCell id="26" value="ETCD" style="shape=cylinder;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;" parent="1" vertex="1">
@@ -58,8 +58,8 @@
                         <mxPoint x="320" y="600" as="targetPoint"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="42" value="DEVOPS" style="rounded=0;whiteSpace=wrap;html=1;dashed=1;" parent="1" vertex="1">
-                    <mxGeometry x="670" y="50" width="160" height="560" as="geometry"/>
+                <mxCell id="42" value="DEVSECOPS" style="rounded=0;whiteSpace=wrap;html=1;dashed=1;" parent="1" vertex="1">
+                    <mxGeometry x="660" y="50" width="160" height="560" as="geometry"/>
                 </mxCell>
                 <mxCell id="43" value="" style="shape=flexArrow;endArrow=classic;startArrow=classic;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.001;entryY=0.428;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="27" target="42" edge="1">
                     <mxGeometry width="50" height="50" relative="1" as="geometry">
@@ -75,12 +75,6 @@
                 </mxCell>
                 <mxCell id="47" value="gRPC" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
                     <mxGeometry x="374" y="410" width="40" height="20" as="geometry"/>
-                </mxCell>
-                <mxCell id="48" value="ANSIBLE" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-                    <mxGeometry x="690" y="70" width="120" height="60" as="geometry"/>
-                </mxCell>
-                <mxCell id="50" value="ZABBIX" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-                    <mxGeometry x="690" y="160" width="120" height="60" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>
