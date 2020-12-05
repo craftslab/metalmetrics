@@ -38,7 +38,7 @@ git clone https://github.com/craftslab/metalmetrics.git
 
 cd metalmetrics
 docker build --no-cache -f Dockerfile -t craftslab/metalmetrics:latest .
-docker run -it craftslab/metalmetrics:latest ./metalmetrics --config-file="config.yml" --output-file="output.json"
+docker run -it -p 8080:8080 craftslab/metalmetrics:latest ./metalmetrics --config-file="config.yml" --output-file="output.json"
 ```
 
 
@@ -53,7 +53,7 @@ Metal Metrics
 optional arguments:
   -h, --help            show this help message and exit
   -c CONFIG_FILE, --config-file CONFIG_FILE
-                        config file
+                        config file (.yml)
   -o OUTPUT_FILE, --output-file OUTPUT_FILE
                         output file (.json|.txt|.xlsx)
   -v, --version         show program's version number and exit
