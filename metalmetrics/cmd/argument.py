@@ -16,7 +16,7 @@ class Argument(object):
             "--config-file",
             action="store",
             dest="config_file",
-            help="config file",
+            help="config file (.yml)",
             required=True,
         )
         self._parser.add_argument(
