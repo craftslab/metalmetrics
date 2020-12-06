@@ -12,7 +12,6 @@ class Argument(object):
 
     def _add(self):
         self._parser.add_argument(
-            "-c",
             "--config-file",
             action="store",
             dest="config_file",
@@ -20,7 +19,23 @@ class Argument(object):
             required=True,
         )
         self._parser.add_argument(
-            "-o",
+            "--grpc-host",
+            action="store",
+            default="",
+            dest="grpc_host",
+            help="grpc host",
+            required=False,
+        )
+        self._parser.add_argument(
+            "--grpc-port",
+            action="store",
+            default="",
+            dest="grpc_port",
+            help="grpc port",
+            required=False,
+            type=int,
+        )
+        self._parser.add_argument(
             "--output-file",
             action="store",
             default="",

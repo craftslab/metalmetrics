@@ -51,6 +51,34 @@ def test_config():
         assert True
 
     try:
+        config.grpc_host = 0
+    except ConfigException as _:
+        assert True
+    else:
+        assert False
+
+    try:
+        config.grpc_host = "127.0.0.1"
+    except ConfigException as _:
+        assert False
+    else:
+        assert True
+
+    try:
+        config.grpc_port = "0"
+    except ConfigException as _:
+        assert True
+    else:
+        assert False
+
+    try:
+        config.grpc_port = 8080
+    except ConfigException as _:
+        assert False
+    else:
+        assert True
+
+    try:
         config.output_file = 0
     except ConfigException as _:
         assert True

@@ -39,6 +39,8 @@ class ConfigException(Exception):
 class Config(object):
     def __init__(self):
         self._config_file = None
+        self._grpc_host = ""
+        self._grpc_port = 0
         self._output_file = ""
 
     @property
@@ -57,6 +59,26 @@ class Config(object):
             self._config_file = yaml.load(file, Loader=yaml.FullLoader)
         if self._config_file is None:
             raise ConfigException("config invalid")
+
+    @property
+    def grpc_host(self):
+        return self._grpc_host
+
+    @grpc_host.setter
+    def grpc_host(self, host):
+        if not isinstance(host, str):
+            raise ConfigException("host invalid")
+        self._grpc_host = host.strip()
+
+    @property
+    def grpc_port(self):
+        return self._grpc_port
+
+    @grpc_port.setter
+    def grpc_port(self, port):
+        if not isinstance(port, int):
+            raise ConfigException("port invalid")
+        self._grpc_port = port
 
     @property
     def output_file(self):

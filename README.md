@@ -21,40 +21,73 @@
 
 ## Run
 
-```bash
-git clone https://github.com/craftslab/metalmetrics.git
+- **Local mode**
 
-cd metalmetrics
-pip install -Ur requirements.txt
-python metrics.py --config-file="config.yml" --output-file="output.json"
-```
+  ```bash
+  git clone https://github.com/craftslab/metalmetrics.git
+  
+  cd metalmetrics
+  pip install -Ur requirements.txt
+  python metrics.py --config-file="config.yml" --output-file="output.json"
+  ```
+
+
+
+- **gRPC mode**
+
+  ```bash
+  git clone https://github.com/craftslab/metalmetrics.git
+  
+  cd metalmetrics
+  pip install -Ur requirements.txt
+  python metrics.py --config-file="config.yml" --grpc-host="127.0.0.1" --grpc-port=8080
+  ```
 
 
 
 ## Docker
 
-```bash
-git clone https://github.com/craftslab/metalmetrics.git
+- **Local mode**
 
-cd metalmetrics
-docker build --no-cache -f Dockerfile -t craftslab/metalmetrics:latest .
-docker run -it -p 8080:8080 craftslab/metalmetrics:latest ./metalmetrics --config-file="config.yml" --output-file="output.json"
-```
+  ```bash
+  git clone https://github.com/craftslab/metalmetrics.git
+  
+  cd metalmetrics
+  docker build --no-cache -f Dockerfile -t craftslab/metalmetrics:latest .
+  docker run -it craftslab/metalmetrics:latest ./metalmetrics --config-file="config.yml" --output-file="output.json"
+  ```
+
+
+
+- **gRPC mode**
+
+  ```bash
+  git clone https://github.com/craftslab/metalmetrics.git
+  
+  cd metalmetrics
+  docker build --no-cache -f Dockerfile -t craftslab/metalmetrics:latest .
+  docker run -it -p 8080:8080 craftslab/metalmetrics:latest ./metalmetrics --config-file="config.yml" --grpc-host="127.0.0.1" --grpc-port=8080
+  ```
 
 
 
 ## Usage
 
 ```bash
-usage: metrics.py [-h] -c CONFIG_FILE [-o OUTPUT_FILE] [-v]
+usage: metrics.py [-h] --config-file CONFIG_FILE [--grpc-host GRPC_HOST]
+                  [--grpc-port GRPC_PORT] [--output-file OUTPUT_FILE] [-v]
 
 Metal Metrics
 
 optional arguments:
   -h, --help            show this help message and exit
-  -c CONFIG_FILE, --config-file CONFIG_FILE
+  --config-file CONFIG_FILE
                         config file (.yml)
-  -o OUTPUT_FILE, --output-file OUTPUT_FILE
+  --grpc-host GRPC_HOST
+                        grpc host
+  --grpc-port GRPC_PORT
+                        grpc port
+  --output-file OUTPUT_FILE
                         output file (.json|.txt|.xlsx)
   -v, --version         show program's version number and exit
 ```
@@ -103,5 +136,6 @@ Project License can be found [here](LICENSE).
 
 ## Reference
 
+- [gRPC in Python](https://grpc.io/docs/languages/python/)
 - [health-check-script](https://github.com/SimplyLinuxFAQ/health-check-script)
 - [python-diamond](https://github.com/python-diamond/Diamond)

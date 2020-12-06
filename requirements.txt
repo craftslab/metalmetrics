@@ -3,6 +3,8 @@ colorama
 coverage
 coveralls
 flake8
+grpcio
+grpcio-tools
 hypothesis
 mypy
 openpyxl

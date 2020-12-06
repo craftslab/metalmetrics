@@ -1,0 +1,53 @@
+syntax = "proto3";
+
+package service;
+
+service ServiceProto {
+  rpc SendBare (BareRequest) returns (BareReply) {}
+  rpc SendContainer (ContainerRequest) returns (ContainerReply) {}
+  rpc SendKubernetes (KubernetesRequest) returns (KubernetesReply) {}
+}
+
+message BareRequest {
+  string cpu = 1;
+  string disk = 2;
+  string io = 3;
+  string ip = 4;
+  string kernel = 5;
+  string mac = 6;
+  string network = 7;
+  string os = 8;
+  string process = 9;
+  string ram = 10;
+  string ssh = 11;
+}
+
+message BareReply {
+  string cpu = 1;
+  string disk = 2;
+  string io = 3;
+  string ip = 4;
+  string kernel = 5;
+  string mac = 6;
+  string network = 7;
+  string os = 8;
+  string process = 9;
+  string ram = 10;
+  string ssh = 11;
+}
+
+message ContainerRequest {
+  string message = 1;
+}
+
+message ContainerReply {
+  string message = 1;
+}
+
+message KubernetesRequest {
+  string message = 1;
+}
+
+message KubernetesReply {
+  string message = 1;
+}
