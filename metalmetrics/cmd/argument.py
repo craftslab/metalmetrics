@@ -29,7 +29,7 @@ class Argument(object):
         self._parser.add_argument(
             "--grpc-port",
             action="store",
-            default="",
+            default=0,
             dest="grpc_port",
             help="grpc port",
             required=False,
