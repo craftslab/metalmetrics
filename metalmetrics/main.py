@@ -20,6 +20,8 @@ def main():
     try:
         config = Config()
         config.config_file = arg.config_file
+        config.grpc_host = arg.grpc_host
+        config.grpc_port = arg.grpc_port
         config.output_file = arg.output_file
     except ConfigException as e:
         Logger.error(str(e))

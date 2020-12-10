@@ -18,7 +18,29 @@ def test_bare():
     try:
         bare = Bare(config)
         bare._impl = {Spec.CPU: bare._cpu()}
-        bare._execution()
+        ret = bare._execution("foo")
+    except BareException as _:
+        assert False
+    else:
+        assert True
+
+    assert ret is None
+
+    try:
+        bare = Bare(config)
+        bare._impl = {Spec.CPU: bare._cpu()}
+        ret = bare._execution(Spec.CPU)
+    except BareException as _:
+        assert False
+    else:
+        assert True
+
+    assert ret is not None
+
+    try:
+        bare = Bare(config)
+        bare._impl = {Spec.CPU: bare._cpu()}
+        bare._execution(None)
     except BareException as _:
         assert False
     else:

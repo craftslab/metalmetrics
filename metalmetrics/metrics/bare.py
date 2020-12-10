@@ -34,11 +34,14 @@ class Bare(MetricsAbstract):
             Spec.SSH: self._ssh(),
         }
 
-    def _execution(self):
+    def _execution(self, spec):
         buf = {}
-        for key in self._impl.keys():
-            if key in self._spec:
-                buf[key] = self._impl[key]
+        if spec is not None and isinstance(spec, str):
+            buf = self._impl.get(spec, None)
+        else:
+            for key in self._impl.keys():
+                if key in self._spec:
+                    buf[key] = self._impl[key]
         return buf
 
     @staticmethod

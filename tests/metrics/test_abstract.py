@@ -14,7 +14,7 @@ def test_metricsabstract():
         def __init__(self, config):
             super().__init__(config)
 
-        def _execution(self):
+        def _execution(self, _):
             return "_execution"
 
     config = Config()
@@ -27,7 +27,7 @@ def test_metricsabstract():
         def __init__(self, config):
             super().__init__(config)
 
-        def _execution(self):
+        def _execution(self, _):
             raise MetricsAbstractException("exception")
 
     metrics = MetricsTest2(config)

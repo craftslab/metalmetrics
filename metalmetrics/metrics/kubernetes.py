@@ -16,5 +16,5 @@ class Kubernetes(MetricsAbstract):
     def __init__(self, config):
         super().__init__(config)
 
-    def _execution(self):
+    def _execution(self, spec):
         pass

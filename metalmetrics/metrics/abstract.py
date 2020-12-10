@@ -17,12 +17,12 @@ class MetricsAbstract(abc.ABC):
         self._config = config
 
     @abc.abstractmethod
-    def _execution(self):
+    def _execution(self, spec):
         pass
 
-    def run(self):
+    def run(self, spec=None):
         try:
-            result = self._execution()
+            result = self._execution(spec)
         except MetricsAbstractException as _:
             result = None
         return result
