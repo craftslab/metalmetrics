@@ -18,24 +18,16 @@ class Argument(object):
             help="config file (.yml)",
             required=True,
         )
-        self._parser.add_argument(
-            "--grpc-host",
+        group = self._parser.add_mutually_exclusive_group()
+        group.add_argument(
+            "--grpc-url",
             action="store",
             default="",
-            dest="grpc_host",
-            help="grpc host",
+            dest="grpc_url",
+            help="grpc url (host:port)",
             required=False,
         )
-        self._parser.add_argument(
-            "--grpc-port",
-            action="store",
-            default=0,
-            dest="grpc_port",
-            help="grpc port",
-            required=False,
-            type=int,
-        )
-        self._parser.add_argument(
+        group.add_argument(
             "--output-file",
             action="store",
             default="",

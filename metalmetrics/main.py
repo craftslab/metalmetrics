@@ -20,8 +20,7 @@ def main():
     try:
         config = Config()
         config.config_file = arg.config_file
-        config.grpc_host = arg.grpc_host
-        config.grpc_port = arg.grpc_port
+        config.grpc_url = arg.grpc_url
         config.output_file = arg.output_file
     except ConfigException as e:
         Logger.error(str(e))
@@ -35,7 +34,7 @@ def main():
 
     Logger.info("metrics running")
 
-    if len(config.grpc_host) != 0 and config.grpc_port > 0:
+    if len(config.grpc_url) != 0:
         try:
             service = Service(config)
             service.run(metrics.routine, [])

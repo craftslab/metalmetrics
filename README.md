@@ -40,7 +40,7 @@
   
   cd metalmetrics
   pip install -Ur requirements.txt
-  python metrics.py --config-file="config.yml" --grpc-host="127.0.0.1" --grpc-port=8080
+  python metrics.py --config-file="config.yml" --grpc-url="127.0.0.1:9090"
   ```
 
 
@@ -66,7 +66,7 @@
   
   cd metalmetrics
   docker build --no-cache -f Dockerfile -t craftslab/metalmetrics:latest .
-  docker run -it -p 8080:8080 craftslab/metalmetrics:latest ./metalmetrics --config-file="config.yml" --grpc-host="127.0.0.1" --grpc-port=8080
+  docker run -it -p 8080:8080 craftslab/metalmetrics:latest ./metalmetrics --config-file="config.yml" --grpc-url="127.0.0.1:9090"
   ```
 
 
@@ -74,8 +74,8 @@
 ## Usage
 
 ```bash
-usage: metrics.py [-h] --config-file CONFIG_FILE [--grpc-host GRPC_HOST]
-                  [--grpc-port GRPC_PORT] [--output-file OUTPUT_FILE] [-v]
+usage: metrics.py [-h] --config-file CONFIG_FILE
+                  [--grpc-url GRPC_URL | --output-file OUTPUT_FILE] [-v]
 
 Metal Metrics
 
@@ -83,10 +83,7 @@ optional arguments:
   -h, --help            show this help message and exit
   --config-file CONFIG_FILE
                         config file (.yml)
-  --grpc-host GRPC_HOST
-                        grpc host
-  --grpc-port GRPC_PORT
-                        grpc port
+  --grpc-url GRPC_URL   grpc url (host:port)
   --output-file OUTPUT_FILE
                         output file (.json|.txt|.xlsx)
   -v, --version         show program's version number and exit

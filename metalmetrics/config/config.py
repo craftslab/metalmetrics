@@ -39,8 +39,7 @@ class ConfigException(Exception):
 class Config(object):
     def __init__(self):
         self._config_file = None
-        self._grpc_host = ""
-        self._grpc_port = 0
+        self._grpc_url = ""
         self._output_file = ""
 
     @property
@@ -61,24 +60,14 @@ class Config(object):
             raise ConfigException("config invalid")
 
     @property
-    def grpc_host(self):
-        return self._grpc_host
+    def grpc_url(self):
+        return self._grpc_url
 
-    @grpc_host.setter
-    def grpc_host(self, host):
-        if not isinstance(host, str):
-            raise ConfigException("host invalid")
-        self._grpc_host = host.strip()
-
-    @property
-    def grpc_port(self):
-        return self._grpc_port
-
-    @grpc_port.setter
-    def grpc_port(self, port):
-        if not isinstance(port, int):
-            raise ConfigException("port invalid")
-        self._grpc_port = port
+    @grpc_url.setter
+    def grpc_url(self, url):
+        if not isinstance(url, str):
+            raise ConfigException("url invalid")
+        self._grpc_url = url.strip()
 
     @property
     def output_file(self):

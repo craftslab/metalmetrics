@@ -32,9 +32,7 @@ class Service(object):
     def _serve(self, routine, args):
         server = grpc.server(futures.ThreadPoolExecutor(max_workers=self._workers))
         add_ServiceProtoServicer_to_server(ServiceProto(routine, args), server)
-        server.add_insecure_port(
-            "%s:%s" % (self._config.grpc_host, str(self._config.grpc_port))
-        )
+        server.add_insecure_port(self._config.grpc_url)
         server.start()
         server.wait_for_termination()
 
