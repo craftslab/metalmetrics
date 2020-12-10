@@ -4,7 +4,7 @@ import queue
 import threading
 
 
-class RuntimeException(Exception):
+class QueueException(Exception):
     def __init__(self, info):
         super().__init__(self)
         self._info = info
@@ -13,7 +13,7 @@ class RuntimeException(Exception):
         return self._info
 
 
-class Runtime(object):
+class Queue(object):
     queue_num = 1
     routine_num = 1
 
@@ -36,7 +36,7 @@ class Runtime(object):
         self._wait()
 
 
-class WorkerException(RuntimeException):
+class WorkerException(QueueException):
     def __init__(self, info):
         super().__init__(self)
         self._info = info

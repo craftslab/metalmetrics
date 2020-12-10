@@ -1,35 +1,22 @@
 # -*- coding: utf-8 -*-
 
 from metalmetrics.config.config import Config
-from metalmetrics.metrics.abstract import MetricsAbstract, MetricsAbstractException
-
-
-def test_exception():
-    exception = MetricsAbstractException("exception")
-    assert str(exception) == "exception"
+from metalmetrics.metrics.abstract import MetricsAbstract
 
 
 def test_metricsabstract():
-    class MetricsTest1(MetricsAbstract):
+    class MetricsTest(MetricsAbstract):
         def __init__(self, config):
             super().__init__(config)
 
-        def _execution(self, _):
-            return "_execution"
+        def _execution(self):
+            return {"cpu": "1CPU"}
 
     config = Config()
+    metrics = MetricsTest(config)
 
-    metrics = MetricsTest1(config)
-    result = metrics.run()
-    assert result is not None
-
-    class MetricsTest2(MetricsAbstract):
-        def __init__(self, config):
-            super().__init__(config)
-
-        def _execution(self, _):
-            raise MetricsAbstractException("exception")
-
-    metrics = MetricsTest2(config)
-    result = metrics.run()
+    result = metrics.run("foo")
     assert result is None
+
+    result = metrics.run("cpu")
+    assert result is not None

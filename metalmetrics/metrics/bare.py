@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 
-from metalmetrics.config.config import ConfigFile, Spec
-from metalmetrics.metrics.abstract import MetricsAbstract, MetricsAbstractException
+from metalmetrics.config.config import Spec
+from metalmetrics.metrics.abstract import MetricsAbstract
 
 
-class BareException(MetricsAbstractException):
+class BareException(Exception):
     def __init__(self, info):
         super().__init__(self)
         self._info = info
@@ -16,11 +16,7 @@ class BareException(MetricsAbstractException):
 class Bare(MetricsAbstract):
     def __init__(self, config):
         super().__init__(config)
-        buf = self._config.config_file.get(ConfigFile.SPEC, None)
-        if buf is None:
-            raise BareException("spec invalid")
-        self._spec = buf.get("bare", [])
-        self._impl = {
+        self._exec = {
             Spec.CPU: self._cpu(),
             Spec.DISK: self._disk(),
             Spec.IO: self._io(),
@@ -34,15 +30,8 @@ class Bare(MetricsAbstract):
             Spec.SSH: self._ssh(),
         }
 
-    def _execution(self, spec):
-        buf = {}
-        if spec is not None and isinstance(spec, str):
-            buf = self._impl.get(spec, None)
-        else:
-            for key in self._impl.keys():
-                if key in self._spec:
-                    buf[key] = self._impl[key]
-        return buf
+    def _execution(self):
+        return self._exec
 
     @staticmethod
     def _cpu():

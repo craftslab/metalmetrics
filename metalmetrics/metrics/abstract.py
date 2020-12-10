@@ -3,26 +3,16 @@
 import abc
 
 
-class MetricsAbstractException(Exception):
-    def __init__(self, info):
-        super().__init__(self)
-        self._info = info
-
-    def __str__(self):
-        return self._info
-
-
 class MetricsAbstract(abc.ABC):
     def __init__(self, config):
         self._config = config
 
     @abc.abstractmethod
-    def _execution(self, spec):
+    def _execution(self):
         pass
 
-    def run(self, spec=None):
-        try:
-            result = self._execution(spec)
-        except MetricsAbstractException as _:
-            result = None
-        return result
+    def run(self, spec):
+        _exec = self._execution()
+        if _exec is None or not isinstance(_exec, dict):
+            return None
+        return _exec.get(spec, None)

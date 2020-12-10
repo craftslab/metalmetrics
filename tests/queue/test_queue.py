@@ -2,23 +2,23 @@
 
 import queue
 
-from metalmetrics.runtime.runtime import Runtime, RuntimeException
-from metalmetrics.runtime.runtime import Worker, WorkerException
+from metalmetrics.queue.queue import Queue, QueueException
+from metalmetrics.queue.queue import Worker, WorkerException
 
 
 def routine():
     pass
 
 
-def test_runtimeexception():
-    exception = RuntimeException("exception")
+def test_queueexception():
+    exception = QueueException("exception")
     assert str(exception) == "exception"
 
 
-def test_runtime():
+def test_queue():
     try:
-        runtime = Runtime(None)
-    except RuntimeException as _:
+        q = Queue(None)
+    except QueueException as _:
         assert False
     else:
         assert True
@@ -26,8 +26,8 @@ def test_runtime():
     args = "event"
 
     try:
-        runtime.run(routine, args)
-    except RuntimeException as _:
+        q.run(routine, args)
+    except QueueException as _:
         assert False
     else:
         assert True

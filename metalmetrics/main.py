@@ -7,7 +7,7 @@ from metalmetrics.cmd.banner import BANNER
 from metalmetrics.config.config import Config, ConfigException
 from metalmetrics.logger.logger import Logger
 from metalmetrics.metrics.metrics import Metrics, MetricsException
-from metalmetrics.runtime.runtime import Runtime, RuntimeException
+from metalmetrics.queue.queue import Queue, QueueException
 from metalmetrics.service.service import Service, ServiceException
 
 
@@ -36,9 +36,9 @@ def main():
     Logger.info("metrics running")
 
     try:
-        runtime = Runtime(config)
-        runtime.run(metrics.routine, [])
-    except RuntimeException as e:
+        queue = Queue(config)
+        queue.run(metrics.routine, [])
+    except QueueException as e:
         Logger.error(str(e))
         return -3
 
