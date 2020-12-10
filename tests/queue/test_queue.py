@@ -23,7 +23,7 @@ def test_queue():
     else:
         assert True
 
-    args = "event"
+    args = ["event"]
 
     try:
         q.run(routine, args)

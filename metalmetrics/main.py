@@ -37,14 +37,14 @@ def main():
     if len(config.grpc_url) != 0:
         try:
             service = Service(config)
-            service.run(metrics.routine, [])
+            service.run(metrics.routine)
         except ServiceException as e:
             Logger.error(str(e))
             return -3
     else:
         try:
             queue = Queue(config)
-            queue.run(metrics.routine, [])
+            queue.run(metrics.routine)
         except QueueException as e:
             Logger.error(str(e))
             return -4

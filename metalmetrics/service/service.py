@@ -36,7 +36,7 @@ class Service(object):
         server.start()
         server.wait_for_termination()
 
-    def run(self, routine, args):
+    def run(self, routine, args=[]):
         self._serve(routine, args)
 
 

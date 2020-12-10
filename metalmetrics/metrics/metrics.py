@@ -4,6 +4,7 @@ from metalmetrics.config.config import ConfigFile
 from metalmetrics.metrics.bare import Bare
 from metalmetrics.metrics.container import Container
 from metalmetrics.metrics.kubernetes import Kubernetes
+from metalmetrics.printer.printer import Printer
 
 
 class MetricsException(Exception):
@@ -23,6 +24,10 @@ class Metrics(object):
         self._spec = config.config_file.get(ConfigFile.SPEC, None)
         if self._spec is None:
             raise MetricsException("spec invalid")
+
+    def _dump(self, data):
+        printer = Printer()
+        printer.run(data=data, name=self._config.output_file, append=False)
 
     def _instance(self):
         buf = {}
@@ -44,11 +49,16 @@ class Metrics(object):
         if spec is not None and isinstance(spec, str):
             specs.append(spec)
         else:
-            specs = self._spec.get(host, [])
+            for item in hosts:
+                buf = self._spec.get(item, [])
+                if buf is not None and len(buf) > 0:
+                    specs.extend(buf)
         buf = {}
         for h in hosts:
             b = {}
             for s in specs:
                 b[s] = self._instance()[h].run(s)
                 buf[h] = b
+        if len(self._config.output_file) != 0:
+            self._dump(buf)
         return buf

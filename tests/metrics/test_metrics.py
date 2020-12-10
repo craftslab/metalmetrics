@@ -21,6 +21,7 @@ def test_metrics():
 
     config = Config()
     config.config_file = os.path.join(os.path.dirname(__file__), "../data/config.yml")
+    config.output_file = ""
 
     try:
         metrics = Metrics(config)
@@ -68,6 +69,8 @@ def test_metrics():
 
     assert buf["bare"]["foo"] is None
 
+    config.output_file = "output.json"
+
     try:
         buf = metrics.routine(host="bare", spec="cpu")
     except MetricsException as _:
@@ -76,3 +79,6 @@ def test_metrics():
         assert True
 
     assert buf["bare"]["cpu"] is not None
+
+    assert os.path.isfile(config.output_file)
+    os.remove(config.output_file)

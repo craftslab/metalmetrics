@@ -30,7 +30,7 @@ class Queue(object):
     def _wait(self):
         self._queue.join()
 
-    def run(self, routine, args):
+    def run(self, routine, args=[]):
         for _ in range(self.queue_num):
             self._add(routine, args)
         self._wait()

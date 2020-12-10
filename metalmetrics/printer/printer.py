@@ -86,8 +86,9 @@ class Printer(object):
                     sheet[key + str(row + 2)].font = Font(bold=False, name="Calibri")
 
         wb = openpyxl.Workbook()
-        ws = wb.active
+        wb.remove(wb.active)
         for key, val in data.items():
+            ws = wb.create_sheet()
             ws.append([head[key].upper() for key in sorted(head.keys())])
             ws.title = "%s %s" % (
                 key.upper(),
