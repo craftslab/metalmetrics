@@ -2,52 +2,42 @@ syntax = "proto3";
 
 package service;
 
+// The service definition.
 service ServiceProto {
+  // Sends bare
   rpc SendBare (BareRequest) returns (BareReply) {}
+  // Sends container
   rpc SendContainer (ContainerRequest) returns (ContainerReply) {}
+  // Sends kubernetes
   rpc SendKubernetes (KubernetesRequest) returns (KubernetesReply) {}
 }
 
+// The request message containing bare spec name.
 message BareRequest {
-  string cpu = 1;
-  string disk = 2;
-  string io = 3;
-  string ip = 4;
-  string kernel = 5;
-  string mac = 6;
-  string network = 7;
-  string os = 8;
-  string process = 9;
-  string ram = 10;
-  string ssh = 11;
+  string name = 1;
 }
 
+// The response message containing bare spec message.
 message BareReply {
-  string cpu = 1;
-  string disk = 2;
-  string io = 3;
-  string ip = 4;
-  string kernel = 5;
-  string mac = 6;
-  string network = 7;
-  string os = 8;
-  string process = 9;
-  string ram = 10;
-  string ssh = 11;
-}
-
-message ContainerRequest {
   string message = 1;
 }
 
+// The request message containing container spec name.
+message ContainerRequest {
+  string name = 1;
+}
+
+// The response message containing container spec message.
 message ContainerReply {
   string message = 1;
 }
 
+// The request message containing kubernetes spec name.
 message KubernetesRequest {
-  string message = 1;
+  string name = 1;
 }
 
+// The response message containing kubernetes spec message.
 message KubernetesReply {
   string message = 1;
 }

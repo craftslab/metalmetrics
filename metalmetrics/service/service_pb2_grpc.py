@@ -2,11 +2,11 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-import service_pb2 as service__pb2
+import metalmetrics.service.service_pb2 as service__pb2
 
 
 class ServiceProtoStub(object):
-    """Missing associated documentation comment in .proto file."""
+    """The service definition."""
 
     def __init__(self, channel):
         """Constructor.
@@ -32,22 +32,22 @@ class ServiceProtoStub(object):
 
 
 class ServiceProtoServicer(object):
-    """Missing associated documentation comment in .proto file."""
+    """The service definition."""
 
     def SendBare(self, request, context):
-        """Missing associated documentation comment in .proto file."""
+        """Sends bare"""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details("Method not implemented!")
         raise NotImplementedError("Method not implemented!")
 
     def SendContainer(self, request, context):
-        """Missing associated documentation comment in .proto file."""
+        """Sends container"""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details("Method not implemented!")
         raise NotImplementedError("Method not implemented!")
 
     def SendKubernetes(self, request, context):
-        """Missing associated documentation comment in .proto file."""
+        """Sends kubernetes"""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details("Method not implemented!")
         raise NotImplementedError("Method not implemented!")
@@ -79,7 +79,7 @@ def add_ServiceProtoServicer_to_server(servicer, server):
 
 # This class is part of an EXPERIMENTAL API.
 class ServiceProto(object):
-    """Missing associated documentation comment in .proto file."""
+    """The service definition."""
 
     @staticmethod
     def SendBare(

@@ -35,12 +35,20 @@ def main():
 
     Logger.info("metrics running")
 
-    try:
-        queue = Queue(config)
-        queue.run(metrics.routine, [])
-    except QueueException as e:
-        Logger.error(str(e))
-        return -3
+    if len(config.grpc_host) != 0 and config.grpc_port > 0:
+        try:
+            service = Service(config)
+            service.run(metrics.routine, [])
+        except ServiceException as e:
+            Logger.error(str(e))
+            return -3
+    else:
+        try:
+            queue = Queue(config)
+            queue.run(metrics.routine, [])
+        except QueueException as e:
+            Logger.error(str(e))
+            return -4
 
     Logger.info("metrics exiting")
 
