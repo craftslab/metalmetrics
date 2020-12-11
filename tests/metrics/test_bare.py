@@ -26,16 +26,21 @@ def test_bare():
     assert _exec is not None
 
     buf = bare._cpu()
+    print(buf)
     assert buf != "invalid"
 
     buf = bare._disk()
+    print(buf)
     assert buf != "invalid"
 
     buf = bare._kernel()
+    print(buf)
     assert buf != "invalid"
 
     buf = bare._os()
+    print(buf)
     assert buf != "invalid"
 
     buf = bare._ram()
+    print(buf)
     assert buf != "invalid"

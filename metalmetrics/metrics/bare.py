@@ -55,21 +55,23 @@ class Bare(MetricsAbstract):
         df -hPl | grep -wvE '\\-|none|tmpfs|devtmpfs|by-uuid|chroot|Filesystem|udev|docker' | awk '{print $3}'
         """
 
-        cmd = ["df", "-hPl"]
-        df = self._popen(cmd=cmd)
-        cmd = [
-            "grep",
-            "-wvE",
-            "\\-|none|tmpfs|devtmpfs|by-uuid|chroot|Filesystem|udev|docker",
-        ]
-        grep = self._popen(cmd=cmd, stdin=df.stdout)
-        cmd = ["awk", "{print $2}"]
-        proc = self._popen(cmd=cmd, stdin=grep.stdout)
+        def _helper(args):
+            cmd = ["df", "-hPl"]
+            df = self._popen(cmd=cmd)
+            cmd = [
+                "grep",
+                "-wvE",
+                "\\-|none|tmpfs|devtmpfs|by-uuid|chroot|Filesystem|udev|docker",
+            ]
+            grep = self._popen(cmd=cmd, stdin=df.stdout)
+            cmd = ["awk", "{print %s}" % args]
+            return self._popen(cmd=cmd, stdin=grep.stdout)
+
+        proc = _helper("$2")
         total, _ = proc.communicate()
         if proc.returncode != 0:
             return "invalid"
-        cmd = ["awk", "{print $3}"]
-        proc = self._popen(cmd=cmd, stdin=grep.stdout)
+        proc = _helper("$3")
         used, _ = proc.communicate()
         if proc.returncode != 0:
             return "invalid"
@@ -105,7 +107,7 @@ class Bare(MetricsAbstract):
         """
         awk -F'[= "]' '/PRETTY_NAME/{print $3,$4,$5}' /etc/os-release
         """
-        cmd = ["awk", "-F'[= \"]", "/PRETTY_NAME/{print $3,$4,$5}", "/etc/os-release"]
+        cmd = ["awk", '-F[= "]', "/PRETTY_NAME/{print $3,$4,$5}", "/etc/os-release"]
         proc = self._popen(cmd)
         out, _ = proc.communicate()
         if proc.returncode != 0:
@@ -125,6 +127,8 @@ class Bare(MetricsAbstract):
         total, _ = proc.communicate()
         if proc.returncode != 0:
             return "invalid"
+        cmd = ["free", "-m"]
+        free = self._popen(cmd=cmd)
         cmd = ["awk", "/Mem/ {print $3}"]
         proc = self._popen(cmd=cmd, stdin=free.stdout)
         used, _ = proc.communicate()
