@@ -27,3 +27,6 @@ def test_bare():
 
     buf = bare._cpu()
     assert buf != "invalid"
+
+    buf = bare._disk()
+    assert buf != "invalid"

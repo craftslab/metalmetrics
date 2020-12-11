@@ -110,9 +110,7 @@ spec:
   - mac
   - network
   - os
-  - process
   - ram
-  - ssh
   container:
   kubernetes:
 ```

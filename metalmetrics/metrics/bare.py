@@ -27,9 +27,7 @@ class Bare(MetricsAbstract):
             Spec.MAC: self._mac(),
             Spec.NETWORK: self._network(),
             Spec.OS: self._os(),
-            Spec.PROCESS: self._process(),
             Spec.RAM: self._ram(),
-            Spec.SSH: self._ssh(),
         }
 
     def _execution(self):
@@ -41,14 +39,38 @@ class Bare(MetricsAbstract):
         proc = subprocess.Popen(
             cmd.split(), stdout=subprocess.PIPE, stderr=subprocess.PIPE
         )
-        out, err = proc.communicate()
+        out, _ = proc.communicate()
         if proc.returncode != 0:
             return "invalid"
-        return "%sCPU" % out.strip().decode("utf-8")
+        return "%s CPU" % out.strip().decode("utf-8")
 
     @staticmethod
     def _disk():
-        return "10TB HDD"
+        def _helper(cmd, stdin, stdout):
+            return subprocess.Popen(
+                cmd.split(), stdin=stdin, stdout=stdout, stderr=subprocess.PIPE
+            )
+
+        cmd = "df -hPl"
+        df = _helper(cmd=cmd, stdin=None, stdout=subprocess.PIPE)
+        cmd = (
+            "grep -wvE '\\-|none|tmpfs|devtmpfs|by-uuid|chroot|Filesystem|udev|docker'"
+        )
+        grep = _helper(cmd=cmd, stdin=df.stdout, stdout=subprocess.PIPE)
+        cmd = "awk '{print $2}'"
+        proc = _helper(cmd=cmd, stdin=grep.stdout, stdout=subprocess.PIPE)
+        total, _ = proc.communicate()
+        if proc.returncode != 0:
+            return "invalid"
+        cmd = "awk '{print $3}'"
+        proc = _helper(cmd=cmd, stdin=grep.stdout, stdout=subprocess.PIPE)
+        used, _ = proc.communicate()
+        if proc.returncode != 0:
+            return "invalid"
+        return "%s GB (%s GB Used)" % (
+            total.strip().decode("utf-8"),
+            used.strip().decode("utf-8"),
+        )
 
     @staticmethod
     def _io():
@@ -75,13 +97,5 @@ class Bare(MetricsAbstract):
         return "18.04.1-Ubuntu"
 
     @staticmethod
-    def _process():
-        return "10"
-
-    @staticmethod
     def _ram():
         return "8GB"
-
-    @staticmethod
-    def _ssh():
-        return "20"

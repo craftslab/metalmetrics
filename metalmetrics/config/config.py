@@ -22,9 +22,7 @@ class Spec:
     MAC = "mac"
     NETWORK = "network"
     OS = "os"
-    PROCESS = "process"
     RAM = "ram"
-    SSH = "ssh"
 
 
 class ConfigException(Exception):

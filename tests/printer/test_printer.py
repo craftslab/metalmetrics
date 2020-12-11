@@ -22,9 +22,7 @@ def test_printer():
             Spec.MAC: "01:02:03:04:05:06",
             Spec.NETWORK: "10Mbps",
             Spec.OS: "18.04.1-Ubuntu",
-            Spec.PROCESS: "10",
             Spec.RAM: "8GB",
-            Spec.SSH: "20",
         }
     }
 

@@ -18,9 +18,7 @@ head = {
     "F": Spec.MAC,
     "G": Spec.NETWORK,
     "H": Spec.OS,
-    "I": Spec.PROCESS,
-    "J": Spec.RAM,
-    "K": Spec.SSH,
+    "I": Spec.RAM,
 }
 
 
@@ -61,8 +59,6 @@ class Printer(object):
             out.write(u"%s%s: %s\n" % (" " * 0, head["G"], data[head["G"]]))
             out.write(u"%s%s: %s\n" % (" " * 5, head["H"], data[head["H"]]))
             out.write(u"%s%s: %s\n" % (" " * 0, head["I"], data[head["I"]]))
-            out.write(u"%s%s: %s\n" % (" " * 4, head["J"], data[head["J"]]))
-            out.write(u"%s%s: %s\n" % (" " * 4, head["K"], data[head["K"]]))
             out.write("\n")
 
         with open(name, "w", encoding="utf8") as f:
