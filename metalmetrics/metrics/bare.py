@@ -94,7 +94,14 @@ class Bare(MetricsAbstract):
 
     @staticmethod
     def _os():
-        return "18.04.1-Ubuntu"
+        cmd = """awk -F'[= "]' '/PRETTY_NAME/{print $3,$4,$5}' /etc/os-release"""
+        proc = subprocess.Popen(
+            cmd.split(), stdout=subprocess.PIPE, stderr=subprocess.PIPE
+        )
+        out, _ = proc.communicate()
+        if proc.returncode != 0:
+            return "invalid"
+        return out.strip().decode("utf-8")
 
     @staticmethod
     def _ram():
