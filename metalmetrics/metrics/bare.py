@@ -35,10 +35,11 @@ class Bare(MetricsAbstract):
 
     @staticmethod
     def _cpu():
-        cmd = "awk -F: '/model name/ {core++} END {print core}' /proc/cpuinfo"
-        proc = subprocess.Popen(
-            cmd.split(), stdout=subprocess.PIPE, stderr=subprocess.PIPE
-        )
+        """
+        awk -F: '/model name/ {core++} END {print core}' /proc/cpuinfo
+        """
+        cmd = ["awk", "-F:", "/model name/ {core++} END {print core}", "/proc/cpuinfo"]
+        proc = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         out, _ = proc.communicate()
         if proc.returncode != 0:
             return "invalid"
@@ -46,23 +47,30 @@ class Bare(MetricsAbstract):
 
     @staticmethod
     def _disk():
+        """
+        df -hPl | grep -wvE '\\-|none|tmpfs|devtmpfs|by-uuid|chroot|Filesystem|udev|docker' | awk '{print $2}'
+        df -hPl | grep -wvE '\\-|none|tmpfs|devtmpfs|by-uuid|chroot|Filesystem|udev|docker' | awk '{print $3}'
+        """
+
         def _helper(cmd, stdin, stdout):
             return subprocess.Popen(
-                cmd.split(), stdin=stdin, stdout=stdout, stderr=subprocess.PIPE
+                cmd, stdin=stdin, stdout=stdout, stderr=subprocess.PIPE
             )
 
-        cmd = "df -hPl"
+        cmd = ["df", "-hPl"]
         df = _helper(cmd=cmd, stdin=None, stdout=subprocess.PIPE)
-        cmd = (
-            "grep -wvE '\\-|none|tmpfs|devtmpfs|by-uuid|chroot|Filesystem|udev|docker'"
-        )
+        cmd = [
+            "grep",
+            "-wvE",
+            "\\-|none|tmpfs|devtmpfs|by-uuid|chroot|Filesystem|udev|docker",
+        ]
         grep = _helper(cmd=cmd, stdin=df.stdout, stdout=subprocess.PIPE)
-        cmd = "awk '{print $2}'"
+        cmd = ["awk", "{print $2}"]
         proc = _helper(cmd=cmd, stdin=grep.stdout, stdout=subprocess.PIPE)
         total, _ = proc.communicate()
         if proc.returncode != 0:
             return "invalid"
-        cmd = "awk '{print $3}'"
+        cmd = ["awk", "{print $3}"]
         proc = _helper(cmd=cmd, stdin=grep.stdout, stdout=subprocess.PIPE)
         used, _ = proc.communicate()
         if proc.returncode != 0:
@@ -82,10 +90,11 @@ class Bare(MetricsAbstract):
 
     @staticmethod
     def _kernel():
-        cmd = "uname -r"
-        proc = subprocess.Popen(
-            cmd.split(), stdout=subprocess.PIPE, stderr=subprocess.PIPE
-        )
+        """
+        uname -r
+        """
+        cmd = ["uname", "-r"]
+        proc = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         out, _ = proc.communicate()
         if proc.returncode != 0:
             return "invalid"
@@ -101,10 +110,11 @@ class Bare(MetricsAbstract):
 
     @staticmethod
     def _os():
-        cmd = """awk -F'[= "]' '/PRETTY_NAME/{print $3,$4,$5}' /etc/os-release"""
-        proc = subprocess.Popen(
-            cmd.split(), stdout=subprocess.PIPE, stderr=subprocess.PIPE
-        )
+        """
+        awk -F'[= "]' '/PRETTY_NAME/{print $3,$4,$5}' /etc/os-release
+        """
+        cmd = ["awk", "-F'[= \"]", "/PRETTY_NAME/{print $3,$4,$5}", "/etc/os-release"]
+        proc = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         out, _ = proc.communicate()
         if proc.returncode != 0:
             return "invalid"
@@ -112,19 +122,24 @@ class Bare(MetricsAbstract):
 
     @staticmethod
     def _ram():
+        """
+        free -m | awk '/Mem/ {print $2}'
+        free -m | awk '/Mem/ {print $3}'
+        """
+
         def _helper(cmd, stdin, stdout):
             return subprocess.Popen(
-                cmd.split(), stdin=stdin, stdout=stdout, stderr=subprocess.PIPE
+                cmd, stdin=stdin, stdout=stdout, stderr=subprocess.PIPE
             )
 
-        cmd = "free -m"
+        cmd = ["free", "-m"]
         free = _helper(cmd=cmd, stdin=None, stdout=subprocess.PIPE)
-        cmd = "awk '/Mem/ {print $2}'"
+        cmd = ["awk", "/Mem/ {print $2}"]
         proc = _helper(cmd=cmd, stdin=free.stdout, stdout=subprocess.PIPE)
         total, _ = proc.communicate()
         if proc.returncode != 0:
             return "invalid"
-        cmd = "awk '/Mem/ {print $3}'"
+        cmd = ["awk", "/Mem/ {print $3}"]
         proc = _helper(cmd=cmd, stdin=free.stdout, stdout=subprocess.PIPE)
         used, _ = proc.communicate()
         if proc.returncode != 0:
