@@ -82,7 +82,14 @@ class Bare(MetricsAbstract):
 
     @staticmethod
     def _kernel():
-        return "5.4.0-54-generic"
+        cmd = "uname -r"
+        proc = subprocess.Popen(
+            cmd.split(), stdout=subprocess.PIPE, stderr=subprocess.PIPE
+        )
+        out, _ = proc.communicate()
+        if proc.returncode != 0:
+            return "invalid"
+        return out.strip().decode("utf-8")
 
     @staticmethod
     def _mac():

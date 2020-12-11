@@ -31,5 +31,8 @@ def test_bare():
     buf = bare._disk()
     assert buf != "invalid"
 
+    buf = bare._kernel()
+    assert buf != "invalid"
+
     buf = bare._os()
     assert buf != "invalid"
