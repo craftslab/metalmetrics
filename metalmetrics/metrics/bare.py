@@ -43,10 +43,10 @@ class Bare(MetricsAbstract):
         awk -F: '/model name/ {core++} END {print core}' /proc/cpuinfo
         """
         cmd = ["awk", "-F:", "/model name/ {core++} END {print core}", "/proc/cpuinfo"]
-        proc = self._popen(cmd)
-        out, _ = proc.communicate()
-        if proc.returncode != 0:
-            return "invalid"
+        with self._popen(cmd) as proc:
+            out, _ = proc.communicate()
+            if proc.returncode != 0:
+                return "invalid"
         return "%s CPU" % out.strip().decode("utf-8")
 
     def _disk(self):
@@ -67,14 +67,14 @@ class Bare(MetricsAbstract):
             cmd = ["awk", "{print %s}" % args]
             return self._popen(cmd=cmd, stdin=grep.stdout)
 
-        proc = _helper("$2")
-        total, _ = proc.communicate()
-        if proc.returncode != 0:
-            return "invalid"
-        proc = _helper("$3")
-        used, _ = proc.communicate()
-        if proc.returncode != 0:
-            return "invalid"
+        with _helper("$2") as proc:
+            total, _ = proc.communicate()
+            if proc.returncode != 0:
+                return "invalid"
+        with _helper("$3") as proc:
+            used, _ = proc.communicate()
+            if proc.returncode != 0:
+                return "invalid"
         return "%s GB (%s GB Used)" % (
             total.strip().decode("utf-8"),
             used.strip().decode("utf-8"),
@@ -91,10 +91,10 @@ class Bare(MetricsAbstract):
         uname -r
         """
         cmd = ["uname", "-r"]
-        proc = self._popen(cmd)
-        out, _ = proc.communicate()
-        if proc.returncode != 0:
-            return "invalid"
+        with self._popen(cmd) as proc:
+            out, _ = proc.communicate()
+            if proc.returncode != 0:
+                return "invalid"
         return out.strip().decode("utf-8")
 
     def _mac(self):
@@ -108,10 +108,10 @@ class Bare(MetricsAbstract):
         awk -F'[= "]' '/PRETTY_NAME/{print $3,$4,$5}' /etc/os-release
         """
         cmd = ["awk", '-F[= "]', "/PRETTY_NAME/{print $3,$4,$5}", "/etc/os-release"]
-        proc = self._popen(cmd)
-        out, _ = proc.communicate()
-        if proc.returncode != 0:
-            return "invalid"
+        with self._popen(cmd) as proc:
+            out, _ = proc.communicate()
+            if proc.returncode != 0:
+                return "invalid"
         return out.strip().decode("utf-8")
 
     def _ram(self):
@@ -121,19 +121,19 @@ class Bare(MetricsAbstract):
         """
 
         cmd = ["free", "-m"]
-        free = self._popen(cmd=cmd)
-        cmd = ["awk", "/Mem/ {print $2}"]
-        proc = self._popen(cmd=cmd, stdin=free.stdout)
-        total, _ = proc.communicate()
-        if proc.returncode != 0:
-            return "invalid"
+        with self._popen(cmd=cmd) as free:
+            cmd = ["awk", "/Mem/ {print $2}"]
+            with self._popen(cmd=cmd, stdin=free.stdout) as proc:
+                total, _ = proc.communicate()
+                if proc.returncode != 0:
+                    return "invalid"
         cmd = ["free", "-m"]
-        free = self._popen(cmd=cmd)
-        cmd = ["awk", "/Mem/ {print $3}"]
-        proc = self._popen(cmd=cmd, stdin=free.stdout)
-        used, _ = proc.communicate()
-        if proc.returncode != 0:
-            return "invalid"
+        with self._popen(cmd=cmd) as free:
+            cmd = ["awk", "/Mem/ {print $3}"]
+            with self._popen(cmd=cmd, stdin=free.stdout) as proc:
+                used, _ = proc.communicate()
+                if proc.returncode != 0:
+                    return "invalid"
         return "%s MB (%s MB Used)" % (
             total.strip().decode("utf-8"),
             used.strip().decode("utf-8"),
