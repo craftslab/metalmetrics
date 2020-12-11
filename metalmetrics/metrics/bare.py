@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import netifaces
 import subprocess
 
 from metalmetrics.config.config import Spec
@@ -84,7 +85,16 @@ class Bare(MetricsAbstract):
         return "10.0kB_read/s,10.0kB_wrtn/s"
 
     def _ip(self):
-        return "127.0.0.1"
+        buf = netifaces.ifaddresses("eth0")
+        if buf is None:
+            return "invalid"
+        inet = buf.get(netifaces.AF_INET, None)
+        if inet is None or len(inet) != 1:
+            return "invalid"
+        addr = inet[0].get("addr", None)
+        if addr is None:
+            return "invalid"
+        return addr
 
     def _kernel(self):
         """
@@ -98,10 +108,19 @@ class Bare(MetricsAbstract):
         return out.strip().decode("utf-8")
 
     def _mac(self):
-        return "01:02:03:04:05:06"
+        buf = netifaces.ifaddresses("eth0")
+        if buf is None:
+            return "invalid"
+        link = buf.get(netifaces.AF_LINK, None)
+        if link is None or len(link) != 1:
+            return "invalid"
+        addr = link[0].get("addr", None)
+        if addr is None:
+            return "invalid"
+        return addr
 
     def _network(self):
-        return "10Mbps"
+        return "10 Mbps"
 
     def _os(self):
         """

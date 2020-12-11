@@ -36,7 +36,15 @@ def test_bare():
     print(buf)
     assert buf != "invalid"
 
+    buf = bare._ip()
+    print(buf)
+    assert buf != "invalid"
+
     buf = bare._kernel()
+    print(buf)
+    assert buf != "invalid"
+
+    buf = bare._mac()
     print(buf)
     assert buf != "invalid"
 

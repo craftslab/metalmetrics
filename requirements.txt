@@ -7,6 +7,7 @@ grpcio
 grpcio-tools
 hypothesis
 mypy
+netifaces
 openpyxl
 pre-commit
 psycopg2-binary
