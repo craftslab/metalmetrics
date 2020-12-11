@@ -25,6 +25,9 @@ def test_bare():
 
     assert _exec is not None
 
+    buf = bare._popen(["ls"])
+    assert buf is not None
+
     buf = bare._cpu()
     print(buf)
     assert buf != "invalid"
