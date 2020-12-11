@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+import subprocess
+
 from metalmetrics.config.config import Spec
 from metalmetrics.metrics.abstract import MetricsAbstract
 
@@ -35,7 +37,14 @@ class Bare(MetricsAbstract):
 
     @staticmethod
     def _cpu():
-        return "1CPU"
+        cmd = "awk -F: '/model name/ {core++} END {print core}' /proc/cpuinfo"
+        proc = subprocess.Popen(
+            cmd.split(), stdout=subprocess.PIPE, stderr=subprocess.PIPE
+        )
+        out, err = proc.communicate()
+        if proc.returncode != 0:
+            return "invalid"
+        return "%sCPU" % out.strip().decode("utf-8")
 
     @staticmethod
     def _disk():

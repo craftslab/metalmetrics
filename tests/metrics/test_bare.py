@@ -17,10 +17,13 @@ def test_bare():
 
     try:
         bare = Bare(config)
-        exec = bare._execution()
+        _exec = bare._execution()
     except BareException as _:
         assert False
     else:
         assert True
 
-    assert exec is not None
+    assert _exec is not None
+
+    buf = bare._cpu()
+    assert buf != "invalid"
