@@ -36,3 +36,6 @@ def test_bare():
 
     buf = bare._os()
     assert buf != "invalid"
+
+    buf = bare._ram()
+    assert buf != "invalid"

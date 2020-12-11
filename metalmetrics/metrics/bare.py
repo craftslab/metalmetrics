@@ -112,4 +112,24 @@ class Bare(MetricsAbstract):
 
     @staticmethod
     def _ram():
-        return "8GB"
+        def _helper(cmd, stdin, stdout):
+            return subprocess.Popen(
+                cmd.split(), stdin=stdin, stdout=stdout, stderr=subprocess.PIPE
+            )
+
+        cmd = "free -m"
+        free = _helper(cmd=cmd, stdin=None, stdout=subprocess.PIPE)
+        cmd = "awk '/Mem/ {print $2}'"
+        proc = _helper(cmd=cmd, stdin=free.stdout, stdout=subprocess.PIPE)
+        total, _ = proc.communicate()
+        if proc.returncode != 0:
+            return "invalid"
+        cmd = "awk '/Mem/ {print $3}'"
+        proc = _helper(cmd=cmd, stdin=free.stdout, stdout=subprocess.PIPE)
+        used, _ = proc.communicate()
+        if proc.returncode != 0:
+            return "invalid"
+        return "%s MB (%s MB Used)" % (
+            total.strip().decode("utf-8"),
+            used.strip().decode("utf-8"),
+        )
