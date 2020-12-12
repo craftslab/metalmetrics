@@ -61,7 +61,7 @@ class Bare(MetricsAbstract):
     def _io(self):
         read = psutil.disk_io_counters().read_bytes >> 10
         write = psutil.disk_io_counters().write_bytes >> 10
-        return "RD kB %s WR kB %s" % (str(read), str(write))
+        return "RD %s KB WR %s KB" % (str(read), str(write))
 
     def _ip(self):
         def _helper(nic):
@@ -110,7 +110,7 @@ class Bare(MetricsAbstract):
 
     def _network(self):
         def _helper(nic):
-            sent = psutil.net_io_counters(pernic=True)[nic].packets_send
+            sent = psutil.net_io_counters(pernic=True)[nic].packets_sent
             recv = psutil.net_io_counters(pernic=True)[nic].packets_recv
             return "RX packets %s TX packets %s" % (str(recv), str(sent))
 
