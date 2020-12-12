@@ -54,7 +54,7 @@
   
   cd metalmetrics
   docker build --no-cache -f Dockerfile -t craftslab/metalmetrics:latest .
-  docker run -it craftslab/metalmetrics:latest ./metalmetrics --config-file="config.yml" --output-file="output.json"
+  docker run -it -v /tmp:/tmp craftslab/metalmetrics:latest ./metalmetrics --config-file="config.yml" --output-file="/tmp/output.json"
   ```
 
 
@@ -66,7 +66,7 @@
   
   cd metalmetrics
   docker build --no-cache -f Dockerfile -t craftslab/metalmetrics:latest .
-  docker run -it -p 8080:8080 craftslab/metalmetrics:latest ./metalmetrics --config-file="config.yml" --grpc-url="127.0.0.1:9090"
+  docker run -it -p 9090:9090 craftslab/metalmetrics:latest ./metalmetrics --config-file="config.yml" --grpc-url="127.0.0.1:9090"
   ```
 
 
