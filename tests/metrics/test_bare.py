@@ -30,28 +30,36 @@ def test_bare():
 
     buf = bare._cpu()
     print(buf)
-    assert buf != "invalid"
+    assert len(buf) != 0
 
     buf = bare._disk()
     print(buf)
-    assert buf != "invalid"
+    assert len(buf) != 0
+
+    buf = bare._io()
+    print(buf)
+    assert len(buf) != 0
 
     buf = bare._ip()
     print(buf)
-    assert buf != "invalid"
+    assert len(buf) != 0
 
     buf = bare._kernel()
     print(buf)
-    assert buf != "invalid"
+    assert len(buf) != 0
 
     buf = bare._mac()
     print(buf)
-    assert buf != "invalid"
+    assert len(buf) != 0
+
+    buf = bare._network()
+    print(buf)
+    assert len(buf) != 0
 
     buf = bare._os()
     print(buf)
-    assert buf != "invalid"
+    assert len(buf) != 0
 
     buf = bare._ram()
     print(buf)
-    assert buf != "invalid"
+    assert len(buf) != 0

@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
-import netifaces
+import os
+import psutil
+import socket
 import subprocess
 
 from metalmetrics.config.config import Spec
@@ -43,58 +45,40 @@ class Bare(MetricsAbstract):
         """
         awk -F: '/model name/ {core++} END {print core}' /proc/cpuinfo
         """
-        cmd = ["awk", "-F:", "/model name/ {core++} END {print core}", "/proc/cpuinfo"]
-        with self._popen(cmd) as proc:
-            out, _ = proc.communicate()
-            if proc.returncode != 0:
-                return "invalid"
-        return "%s CPU" % out.strip().decode("utf-8")
+        return "%s CPU" % str(psutil.cpu_count())
 
     def _disk(self):
         """
         df -hPl | grep -wvE '\\-|none|tmpfs|devtmpfs|by-uuid|chroot|Filesystem|udev|docker' | awk '{print $2}'
         df -hPl | grep -wvE '\\-|none|tmpfs|devtmpfs|by-uuid|chroot|Filesystem|udev|docker' | awk '{print $3}'
         """
-
-        def _helper(args):
-            cmd = ["df", "-hPl"]
-            df = self._popen(cmd=cmd)
-            cmd = [
-                "grep",
-                "-wvE",
-                "\\-|none|tmpfs|devtmpfs|by-uuid|chroot|Filesystem|udev|docker",
-            ]
-            grep = self._popen(cmd=cmd, stdin=df.stdout)
-            cmd = ["awk", "{print %s}" % args]
-            return self._popen(cmd=cmd, stdin=grep.stdout)
-
-        with _helper("$2") as proc:
-            total, _ = proc.communicate()
-            if proc.returncode != 0:
-                return "invalid"
-        with _helper("$3") as proc:
-            used, _ = proc.communicate()
-            if proc.returncode != 0:
-                return "invalid"
-        return "%s GB (%s GB Used)" % (
-            total.strip().decode("utf-8"),
-            used.strip().decode("utf-8"),
+        usage = psutil.disk_usage("/")
+        return "%.1f GB (%.1f GB Used)" % (
+            float(usage.total >> 30),
+            float(usage.used >> 30),
         )
 
     def _io(self):
-        return "10.0kB_read/s,10.0kB_wrtn/s"
+        read = psutil.disk_io_counters().read_bytes >> 10
+        write = psutil.disk_io_counters().write_bytes >> 10
+        return "RD kB %s WR kB %s" % (str(read), str(write))
 
     def _ip(self):
-        buf = netifaces.ifaddresses("eth0")
-        if buf is None:
-            return "invalid"
-        inet = buf.get(netifaces.AF_INET, None)
-        if inet is None or len(inet) != 1:
-            return "invalid"
-        addr = inet[0].get("addr", None)
-        if addr is None:
-            return "invalid"
-        return addr
+        def _helper(nic):
+            buf = ""
+            for item in psutil.net_if_addrs()[nic]:
+                if item.family == socket.AF_INET:
+                    buf = item.address
+                    break
+            return buf
+
+        buf = []
+        for key, val in psutil.net_if_stats().items():
+            if key != "lo" and val.isup is True:
+                addr = _helper(key)
+                if len(addr) != 0:
+                    buf.append(addr)
+        return os.linesep.join(buf)
 
     def _kernel(self):
         """
@@ -104,23 +88,39 @@ class Bare(MetricsAbstract):
         with self._popen(cmd) as proc:
             out, _ = proc.communicate()
             if proc.returncode != 0:
-                return "invalid"
+                return ""
         return out.strip().decode("utf-8")
 
     def _mac(self):
-        buf = netifaces.ifaddresses("eth0")
-        if buf is None:
-            return "invalid"
-        link = buf.get(netifaces.AF_LINK, None)
-        if link is None or len(link) != 1:
-            return "invalid"
-        addr = link[0].get("addr", None)
-        if addr is None:
-            return "invalid"
-        return addr
+        def _helper(nic):
+            buf = ""
+            for item in psutil.net_if_addrs()[nic]:
+                if item.family == psutil.AF_LINK:
+                    buf = item.address
+                    break
+            return buf
+
+        buf = []
+        for key, val in psutil.net_if_stats().items():
+            if key != "lo" and val.isup is True:
+                addr = _helper(key)
+                if len(addr) != 0:
+                    buf.append(addr)
+        return os.linesep.join(buf)
 
     def _network(self):
-        return "10 Mbps"
+        def _helper(nic):
+            sent = psutil.net_io_counters(pernic=True)[nic].packets_send
+            recv = psutil.net_io_counters(pernic=True)[nic].packets_recv
+            return "RX packets %s TX packets %s" % (str(recv), str(sent))
+
+        buf = []
+        for key, val in psutil.net_if_stats().items():
+            if key != "lo" and val.isup is True:
+                addr = _helper(key)
+                if len(addr) != 0:
+                    buf.append(addr)
+        return os.linesep.join(buf)
 
     def _os(self):
         """
@@ -138,22 +138,5 @@ class Bare(MetricsAbstract):
         free -m | awk '/Mem/ {print $2}'
         free -m | awk '/Mem/ {print $3}'
         """
-
-        cmd = ["free", "-m"]
-        with self._popen(cmd=cmd) as free:
-            cmd = ["awk", "/Mem/ {print $2}"]
-            with self._popen(cmd=cmd, stdin=free.stdout) as proc:
-                total, _ = proc.communicate()
-                if proc.returncode != 0:
-                    return "invalid"
-        cmd = ["free", "-m"]
-        with self._popen(cmd=cmd) as free:
-            cmd = ["awk", "/Mem/ {print $3}"]
-            with self._popen(cmd=cmd, stdin=free.stdout) as proc:
-                used, _ = proc.communicate()
-                if proc.returncode != 0:
-                    return "invalid"
-        return "%s MB (%s MB Used)" % (
-            total.strip().decode("utf-8"),
-            used.strip().decode("utf-8"),
-        )
+        mem = psutil.virtual_memory()
+        return "%s MB (%s MB Used)" % (str(mem.total >> 20), str(mem.used >> 20))
