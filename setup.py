@@ -36,8 +36,8 @@ setuptools.setup(
     long_description=readme,
     long_description_content_type='text/markdown',
     name=about['__title__'],
-    packages=[about['__title__']],
-    package_data={'': ['LICENSE']},
+    packages=setuptools.find_packages(exclude=['examples', 'ez_setup', 'release', 'script', 'tests', 'tests.*']),
+    package_data={'metalmetrics': ['config/*.yml']},
     url=about['__url__'],
     version=about['__version__'],
     zip_safe=False)
