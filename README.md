@@ -10,7 +10,7 @@
 
 ## Introduction
 
-*metalmetrics* is a metrics of *[metalflow](https://github.com/craftslab/metalflow/)* written in Python.
+*metalmetrics* is a worker of *[metalflow](https://github.com/craftslab/metalflow/)* written in Python.
 
 
 
