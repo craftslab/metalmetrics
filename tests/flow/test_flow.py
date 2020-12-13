@@ -3,18 +3,18 @@
 import os
 
 from metalmetrics.config.config import Config
-from metalmetrics.service.service import Service, ServiceException
+from metalmetrics.flow.flow import Flow, FlowException
 
 
 def test_exception():
-    exception = ServiceException("exception")
+    exception = FlowException("exception")
     assert str(exception) == "exception"
 
 
-def test_service():
+def test_flow():
     try:
-        _ = Service(None)
-    except ServiceException as _:
+        _ = Flow(None)
+    except FlowException as _:
         assert True
     else:
         assert False
@@ -23,8 +23,8 @@ def test_service():
     config.config_file = os.path.join(os.path.dirname(__file__), "../data/config.yml")
 
     try:
-        _ = Service(config)
-    except ServiceException as _:
+        _ = Flow(config)
+    except FlowException as _:
         assert False
     else:
         assert True

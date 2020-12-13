@@ -8,7 +8,7 @@ from metalmetrics.config.config import Config, ConfigException
 from metalmetrics.logger.logger import Logger
 from metalmetrics.metrics.metrics import Metrics, MetricsException
 from metalmetrics.queue.queue import Queue, QueueException
-from metalmetrics.service.service import Service, ServiceException
+from metalmetrics.flow.flow import Flow, FlowException
 
 
 def main():
@@ -36,9 +36,9 @@ def main():
 
     if len(config.grpc_url) != 0:
         try:
-            service = Service(config)
-            service.run(metrics.routine)
-        except ServiceException as e:
+            flow = Flow(config)
+            flow.run(metrics.routine)
+        except FlowException as e:
             Logger.error(str(e))
             return -3
     else:

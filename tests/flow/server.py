@@ -1,0 +1,32 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+import grpc
+
+from flow_pb2 import FlowReply
+from flow_pb2_grpc import (
+    add_FlowProtoServicer_to_server,
+    FlowProtoServicer,
+)
+
+from concurrent import futures
+
+
+class FlowProto(FlowProtoServicer):
+    def SendFlow(self, request, _):
+        if request.message == "metalmetrics/bare/cpu":
+            return FlowReply(message="1 CPU")
+        else:
+            return FlowReply(message="invalid")
+
+
+def serve():
+    server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
+    add_FlowProtoServicer_to_server(FlowProto(), server)
+    server.add_insecure_port("[::]:9091")
+    server.start()
+    server.wait_for_termination()
+
+
+if __name__ == "__main__":
+    serve()
