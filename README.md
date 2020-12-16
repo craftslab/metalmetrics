@@ -101,7 +101,7 @@ An example of configuration in [config.yml](https://github.com/craftslab/metalme
 
 ```yaml
 apiVersion: v1
-kind: Deployment
+kind: worker
 metadata:
   name: metalmetrics
 spec:
