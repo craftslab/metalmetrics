@@ -51,14 +51,14 @@ def test_config():
         assert True
 
     try:
-        config.grpc_url = 0
+        config.listen_url = 0
     except ConfigException as _:
         assert True
     else:
         assert False
 
     try:
-        config.grpc_url = "127.0.0.1:9090"
+        config.listen_url = "127.0.0.1:9090"
     except ConfigException as _:
         assert False
     else:

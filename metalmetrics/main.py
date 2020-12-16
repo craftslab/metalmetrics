@@ -20,7 +20,7 @@ def main():
     try:
         config = Config()
         config.config_file = arg.config_file
-        config.grpc_url = arg.grpc_url
+        config.listen_url = arg.listen_url
         config.output_file = arg.output_file
     except ConfigException as e:
         Logger.error(str(e))
@@ -34,7 +34,7 @@ def main():
 
     Logger.info("metrics running")
 
-    if len(config.grpc_url) != 0:
+    if len(config.listen_url) != 0:
         try:
             flow = Flow(config)
             flow.run(metrics.routine)

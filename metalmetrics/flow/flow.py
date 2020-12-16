@@ -30,7 +30,7 @@ class Flow(object):
     def _serve(self, routine, args):
         server = grpc.server(futures.ThreadPoolExecutor(max_workers=self._workers))
         add_FlowProtoServicer_to_server(FlowProto(routine, args), server)
-        server.add_insecure_port(self._config.grpc_url)
+        server.add_insecure_port(self._config.listen_url)
         server.start()
         server.wait_for_termination()
 

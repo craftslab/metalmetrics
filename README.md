@@ -34,14 +34,14 @@
 
 
 
-- **gRPC mode**
+- **Service mode**
 
   ```bash
   git clone https://github.com/craftslab/metalmetrics.git
   
   cd metalmetrics
   pip install -Ur requirements.txt
-  python metrics.py --config-file="config.yml" --grpc-url="127.0.0.1:9090"
+  python metrics.py --config-file="config.yml" --listen-url="127.0.0.1:9090"
   ```
 
 
@@ -60,14 +60,14 @@
 
 
 
-- **gRPC mode**
+- **Service mode**
 
   ```bash
   git clone https://github.com/craftslab/metalmetrics.git
   
   cd metalmetrics
   docker build --no-cache -f Dockerfile -t craftslab/metalmetrics:latest .
-  docker run -it -p 9090:9090 craftslab/metalmetrics:latest ./metalmetrics --config-file="config.yml" --grpc-url="127.0.0.1:9090"
+  docker run -it -p 9090:9090 craftslab/metalmetrics:latest ./metalmetrics --config-file="config.yml" --listen-url="127.0.0.1:9090"
   ```
 
 
@@ -76,7 +76,7 @@
 
 ```bash
 usage: metrics.py [-h] --config-file CONFIG_FILE
-                  [--grpc-url GRPC_URL | --output-file OUTPUT_FILE] [-v]
+                  [--listen-url LISTEN_URL | --output-file OUTPUT_FILE] [-v]
 
 Metal Metrics
 
@@ -84,7 +84,8 @@ optional arguments:
   -h, --help            show this help message and exit
   --config-file CONFIG_FILE
                         config file (.yml)
-  --grpc-url GRPC_URL   grpc url (host:port)
+  --listen-url LISTEN_URL
+                        listen url (host:port)
   --output-file OUTPUT_FILE
                         output file (.json|.txt|.xlsx)
   -v, --version         show program's version number and exit

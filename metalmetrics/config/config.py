@@ -37,7 +37,7 @@ class ConfigException(Exception):
 class Config(object):
     def __init__(self):
         self._config_file = None
-        self._grpc_url = ""
+        self._listen_url = ""
         self._output_file = ""
 
     @property
@@ -58,14 +58,14 @@ class Config(object):
             raise ConfigException("config invalid")
 
     @property
-    def grpc_url(self):
-        return self._grpc_url
+    def listen_url(self):
+        return self._listen_url
 
-    @grpc_url.setter
-    def grpc_url(self, url):
+    @listen_url.setter
+    def listen_url(self, url):
         if not isinstance(url, str):
             raise ConfigException("url invalid")
-        self._grpc_url = url.strip()
+        self._listen_url = url.strip()
 
     @property
     def output_file(self):

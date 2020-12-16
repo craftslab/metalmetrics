@@ -20,11 +20,11 @@ class Argument(object):
         )
         group = self._parser.add_mutually_exclusive_group()
         group.add_argument(
-            "--grpc-url",
+            "--listen-url",
             action="store",
             default="",
-            dest="grpc_url",
-            help="grpc url (host:port)",
+            dest="listen_url",
+            help="listen url (host:port)",
             required=False,
         )
         group.add_argument(
