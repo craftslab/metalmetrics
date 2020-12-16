@@ -5,6 +5,8 @@ import yaml
 
 
 class ConfigFile:
+    APIVERSION = "apiVersion"
+    KIND = "kind"
     METADATA = "metadata"
     SPEC = "spec"
 

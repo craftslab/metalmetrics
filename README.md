@@ -100,19 +100,21 @@ optional arguments:
 An example of configuration in [config.yml](https://github.com/craftslab/metalmetrics-py/blob/master/metalmetrics/config/config.yml):
 
 ```yaml
+apiVersion: v1
+kind: Deployment
 metadata:
   name: metalmetrics
 spec:
   bare:
-  - cpu
-  - disk
-  - io
-  - ip
-  - kernel
-  - mac
-  - network
-  - os
-  - ram
+    - cpu
+    - disk
+    - io
+    - ip
+    - kernel
+    - mac
+    - network
+    - os
+    - ram
   container:
   kubernetes:
 ```
