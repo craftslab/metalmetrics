@@ -1,10 +1,10 @@
 # metalmetrics
 
-[![Actions Status](https://github.com/craftslab/metalmetrics/workflows/CI/badge.svg?branch=master&event=push)](https://github.com/craftslab/metalmetrics/actions?query=workflow%3ACI)
-[![Docker](https://img.shields.io/docker/pulls/craftslab/metalmetrics)](https://hub.docker.com/r/craftslab/metalmetrics)
-[![License](https://img.shields.io/github/license/craftslab/metalmetrics.svg?color=brightgreen)](https://github.com/craftslab/metalmetrics/blob/master/LICENSE)
+[![Actions Status](https://github.com/craftslab/metalmetrics-py/workflows/CI/badge.svg?branch=master&event=push)](https://github.com/craftslab/metalmetrics-py/actions?query=workflow%3ACI)
+[![Docker](https://img.shields.io/docker/pulls/craftslab/metalmetrics-py)](https://hub.docker.com/r/craftslab/metalmetrics-py)
+[![License](https://img.shields.io/github/license/craftslab/metalmetrics-py.svg?color=brightgreen)](https://github.com/craftslab/metalmetrics-py/blob/master/LICENSE)
 [![PyPI](https://img.shields.io/pypi/v/metalmetrics.svg?color=brightgreen)](https://pypi.org/project/metalmetrics)
-[![Tag](https://img.shields.io/github/tag/craftslab/metalmetrics.svg?color=brightgreen)](https://github.com/craftslab/metalmetrics/tags)
+[![Tag](https://img.shields.io/github/tag/craftslab/metalmetrics-py.svg?color=brightgreen)](https://github.com/craftslab/metalmetrics-py/tags)
 
 
 
@@ -25,9 +25,9 @@
 - **Local mode**
 
   ```bash
-  git clone https://github.com/craftslab/metalmetrics.git
+  git clone https://github.com/craftslab/metalmetrics-py.git
   
-  cd metalmetrics
+  cd metalmetrics-py
   pip install -Ur requirements.txt
   python metrics.py --config-file="config.yml" --output-file="output.json"
   ```
@@ -37,9 +37,9 @@
 - **Service mode**
 
   ```bash
-  git clone https://github.com/craftslab/metalmetrics.git
+  git clone https://github.com/craftslab/metalmetrics-py.git
   
-  cd metalmetrics
+  cd metalmetrics-py
   pip install -Ur requirements.txt
   python metrics.py --config-file="config.yml" --listen-url="127.0.0.1:9090"
   ```
@@ -51,11 +51,11 @@
 - **Local mode**
 
   ```bash
-  git clone https://github.com/craftslab/metalmetrics.git
+  git clone https://github.com/craftslab/metalmetrics-py.git
   
-  cd metalmetrics
-  docker build --no-cache -f Dockerfile -t craftslab/metalmetrics:latest .
-  docker run -it -v /tmp:/tmp craftslab/metalmetrics:latest ./metalmetrics --config-file="config.yml" --output-file="/tmp/output.json"
+  cd metalmetrics-py
+  docker build --no-cache -f Dockerfile -t craftslab/metalmetrics-py:latest .
+  docker run -it -v /tmp:/tmp craftslab/metalmetrics-py:latest ./metalmetrics --config-file="config.yml" --output-file="/tmp/output.json"
   ```
 
 
@@ -63,11 +63,11 @@
 - **Service mode**
 
   ```bash
-  git clone https://github.com/craftslab/metalmetrics.git
+  git clone https://github.com/craftslab/metalmetrics-py.git
   
-  cd metalmetrics
-  docker build --no-cache -f Dockerfile -t craftslab/metalmetrics:latest .
-  docker run -it -p 9090:9090 craftslab/metalmetrics:latest ./metalmetrics --config-file="config.yml" --listen-url="127.0.0.1:9090"
+  cd metalmetrics-py
+  docker build --no-cache -f Dockerfile -t craftslab/metalmetrics-py:latest .
+  docker run -it -p 9090:9090 craftslab/metalmetrics-py:latest ./metalmetrics --config-file="config.yml" --listen-url="127.0.0.1:9090"
   ```
 
 
@@ -95,9 +95,9 @@ optional arguments:
 
 ## Settings
 
-*metalmetrics* parameters can be set in the directory [config](https://github.com/craftslab/metalmetrics/blob/master/metalmetrics/config).
+*metalmetrics* parameters can be set in the directory [config](https://github.com/craftslab/metalmetrics-py/blob/master/metalmetrics/config).
 
-An example of configuration in [config.yml](https://github.com/craftslab/metalmetrics/blob/master/metalmetrics/config/config.yml):
+An example of configuration in [config.yml](https://github.com/craftslab/metalmetrics-py/blob/master/metalmetrics/config/config.yml):
 
 ```yaml
 metadata:
