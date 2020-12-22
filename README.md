@@ -74,7 +74,7 @@
 
 ## Usage
 
-```bash
+```
 usage: metrics.py [-h] --config-file CONFIG_FILE
                   [--listen-url LISTEN_URL | --output-file OUTPUT_FILE] [-v]
 
