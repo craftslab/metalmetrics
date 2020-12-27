@@ -135,7 +135,7 @@ Project License can be found [here](LICENSE).
 
 ## Reference
 
-- [gRPC in Python](https://grpc.io/docs/languages/python/)
+- [gRPC](https://grpc.io/docs/languages/python/)
 - [health-check-script](https://github.com/SimplyLinuxFAQ/health-check-script)
 - [python-diamond](https://github.com/python-diamond/Diamond)
 - [sysperf](https://github.com/iandk/sysperf)
