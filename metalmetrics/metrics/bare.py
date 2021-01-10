@@ -31,6 +31,7 @@ class Bare(MetricsAbstract):
             Spec.NETWORK: self._network(),
             Spec.OS: self._os(),
             Spec.RAM: self._ram(),
+            Spec.SYSTEM: self._system(),
         }
 
     def _execution(self):
@@ -140,3 +141,14 @@ class Bare(MetricsAbstract):
         """
         mem = psutil.virtual_memory()
         return "%s MB (%s MB Used)" % (str(mem.total >> 20), str(mem.used >> 20))
+
+    def _system(self):
+        """
+        sudo dmidecode -s system-manufacturer
+        sudo dmidecode -s system-product-name
+        sudo dmidecode -s system-version
+        sudo dmidecode -s system-serial-number
+        sudo dmidecode -s system-uuid
+        """
+        # TODO
+        return "invalid"

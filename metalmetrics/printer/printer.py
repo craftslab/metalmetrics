@@ -19,6 +19,7 @@ head = {
     "G": Spec.NETWORK,
     "H": Spec.OS,
     "I": Spec.RAM,
+    "J": Spec.SYSTEM,
 }
 
 
@@ -50,15 +51,8 @@ class Printer(object):
         def _txt_helper(title, data, out):
             global head
             out.write(u"%s\n" % title)
-            out.write(u"%s%s: %s\n" % (" " * 4, head["A"], data[head["A"]]))
-            out.write(u"%s%s: %s\n" % (" " * 3, head["B"], data[head["B"]]))
-            out.write(u"%s%s: %s\n" % (" " * 5, head["C"], data[head["C"]]))
-            out.write(u"%s%s: %s\n" % (" " * 5, head["D"], data[head["D"]]))
-            out.write(u"%s%s: %s\n" % (" " * 1, head["E"], data[head["E"]]))
-            out.write(u"%s%s: %s\n" % (" " * 4, head["F"], data[head["F"]]))
-            out.write(u"%s%s: %s\n" % (" " * 0, head["G"], data[head["G"]]))
-            out.write(u"%s%s: %s\n" % (" " * 5, head["H"], data[head["H"]]))
-            out.write(u"%s%s: %s\n" % (" " * 0, head["I"], data[head["I"]]))
+            for key in sorted(head.keys()):
+                out.write(u"%s: %s\n" % (head[key], data[head[key]]))
             out.write("\n")
 
         with open(name, "w", encoding="utf8") as f:

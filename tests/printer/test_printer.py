@@ -23,6 +23,7 @@ def test_printer():
             Spec.NETWORK: "10Mbps",
             Spec.OS: "18.04.1-Ubuntu",
             Spec.RAM: "8GB",
+            Spec.SYSTEM: "System Information",
         }
     }
 

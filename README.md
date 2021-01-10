@@ -115,6 +115,7 @@ spec:
     - network
     - os
     - ram
+    - system
   container:
   kubernetes:
 ```

@@ -63,3 +63,7 @@ def test_bare():
     buf = bare._ram()
     print(buf)
     assert len(buf) != 0
+
+    buf = bare._system()
+    print(buf)
+    assert len(buf) != 0

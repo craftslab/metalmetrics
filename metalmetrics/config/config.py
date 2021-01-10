@@ -25,6 +25,7 @@ class Spec:
     NETWORK = "network"
     OS = "os"
     RAM = "ram"
+    SYSTEM = "system"
 
 
 class ConfigException(Exception):
