@@ -55,7 +55,7 @@
   
   cd metalmetrics-py
   docker build --no-cache -f Dockerfile -t craftslab/metalmetrics-py:latest .
-  docker run -it -v /tmp:/tmp craftslab/metalmetrics-py:latest ./metalmetrics --config-file="config.yml" --inxi-file="inxi" --output-file="/tmp/output.json"
+  docker run -it -v /tmp:/tmp craftslab/metalmetrics-py:latest ./metalmetrics --config-file="config.yml" --output-file="/tmp/output.json"
   ```
 
 
@@ -67,7 +67,7 @@
   
   cd metalmetrics-py
   docker build --no-cache -f Dockerfile -t craftslab/metalmetrics-py:latest .
-  docker run -it -p 9090:9090 craftslab/metalmetrics-py:latest ./metalmetrics --config-file="config.yml" --inxi-file="inxi" --listen-url="127.0.0.1:9090"
+  docker run -it -p 9090:9090 craftslab/metalmetrics-py:latest ./metalmetrics --config-file="config.yml" --listen-url="127.0.0.1:9090"
   ```
 
 
