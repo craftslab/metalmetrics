@@ -29,7 +29,7 @@
   
   cd metalmetrics-py
   pip install -Ur requirements.txt
-  python metrics.py --config-file="config.yml" --output-file="output.json"
+  python metrics.py --config-file="config.yml" --inxi-file="inxi" --output-file="output.json"
   ```
 
 
@@ -41,7 +41,7 @@
   
   cd metalmetrics-py
   pip install -Ur requirements.txt
-  python metrics.py --config-file="config.yml" --listen-url="127.0.0.1:9090"
+  python metrics.py --config-file="config.yml" --inxi-file="inxi" --listen-url="127.0.0.1:9090"
   ```
 
 
@@ -55,7 +55,7 @@
   
   cd metalmetrics-py
   docker build --no-cache -f Dockerfile -t craftslab/metalmetrics-py:latest .
-  docker run -it -v /tmp:/tmp craftslab/metalmetrics-py:latest ./metalmetrics --config-file="config.yml" --output-file="/tmp/output.json"
+  docker run -it -v /tmp:/tmp craftslab/metalmetrics-py:latest ./metalmetrics --config-file="config.yml" --inxi-file="inxi" --output-file="/tmp/output.json"
   ```
 
 
@@ -67,7 +67,7 @@
   
   cd metalmetrics-py
   docker build --no-cache -f Dockerfile -t craftslab/metalmetrics-py:latest .
-  docker run -it -p 9090:9090 craftslab/metalmetrics-py:latest ./metalmetrics --config-file="config.yml" --listen-url="127.0.0.1:9090"
+  docker run -it -p 9090:9090 craftslab/metalmetrics-py:latest ./metalmetrics --config-file="config.yml" --inxi-file="inxi" --listen-url="127.0.0.1:9090"
   ```
 
 
@@ -75,7 +75,7 @@
 ## Usage
 
 ```
-usage: metrics.py [-h] --config-file CONFIG_FILE
+usage: metrics.py [-h] --config-file CONFIG_FILE [--inxi-file INXI_FILE]
                   [--listen-url LISTEN_URL | --output-file OUTPUT_FILE] [-v]
 
 Metal Metrics
@@ -84,6 +84,8 @@ optional arguments:
   -h, --help            show this help message and exit
   --config-file CONFIG_FILE
                         config file (.yml)
+  --inxi-file INXI_FILE
+                        inxi file (/path/to/inxi)
   --listen-url LISTEN_URL
                         listen url (host:port)
   --output-file OUTPUT_FILE
@@ -138,5 +140,6 @@ Project License can be found [here](LICENSE).
 
 - [gRPC](https://grpc.io/docs/languages/python/)
 - [health-check-script](https://github.com/SimplyLinuxFAQ/health-check-script)
+- [inxi](https://github.com/smxi/inxi)
 - [python-diamond](https://github.com/python-diamond/Diamond)
 - [sysperf](https://github.com/iandk/sysperf)

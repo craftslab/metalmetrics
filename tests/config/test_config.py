@@ -51,6 +51,27 @@ def test_config():
         assert True
 
     try:
+        config.inxi_file = 0
+    except ConfigException as _:
+        assert True
+    else:
+        assert False
+
+    try:
+        config.inxi_file = ""
+    except ConfigException as _:
+        assert False
+    else:
+        assert True
+
+    try:
+        config.inxi_file = os.path.join(os.path.dirname(__file__), "../data/inxi")
+    except ConfigException as _:
+        assert False
+    else:
+        assert True
+
+    try:
         config.listen_url = 0
     except ConfigException as _:
         assert True

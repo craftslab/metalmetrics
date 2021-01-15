@@ -144,11 +144,13 @@ class Bare(MetricsAbstract):
 
     def _system(self):
         """
-        sudo dmidecode -s system-manufacturer
-        sudo dmidecode -s system-product-name
-        sudo dmidecode -s system-version
-        sudo dmidecode -s system-serial-number
-        sudo dmidecode -s system-uuid
+        perl ./inxi -F
         """
-        # TODO
-        return "invalid"
+        if len(self._config.inxi_file) == 0:
+            return "invalid"
+        cmd = ["perl", self._config.inxi_file, "-F"]
+        with self._popen(cmd) as proc:
+            out, _ = proc.communicate()
+            if proc.returncode != 0:
+                return "invalid"
+        return out.strip().decode("utf-8")

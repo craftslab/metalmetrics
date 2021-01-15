@@ -40,6 +40,7 @@ class ConfigException(Exception):
 class Config(object):
     def __init__(self):
         self._config_file = None
+        self._inxi_file = ""
         self._listen_url = ""
         self._output_file = ""
 
@@ -59,6 +60,19 @@ class Config(object):
             self._config_file = yaml.load(file, Loader=yaml.FullLoader)
         if self._config_file is None:
             raise ConfigException("config invalid")
+
+    @property
+    def inxi_file(self):
+        return self._inxi_file
+
+    @inxi_file.setter
+    def inxi_file(self, name):
+        if not isinstance(name, str):
+            raise ConfigException("name invalid")
+        if len(name.strip()) != 0:
+            if not os.path.exists(name):
+                raise ConfigException("%s not found" % name)
+        self._inxi_file = name.strip()
 
     @property
     def listen_url(self):

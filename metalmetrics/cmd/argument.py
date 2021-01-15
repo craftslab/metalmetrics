@@ -18,6 +18,13 @@ class Argument(object):
             help="config file (.yml)",
             required=True,
         )
+        self._parser.add_argument(
+            "--inxi-file",
+            action="store",
+            dest="inxi_file",
+            help="inxi file (/path/to/inxi)",
+            required=False,
+        )
         group = self._parser.add_mutually_exclusive_group()
         group.add_argument(
             "--listen-url",
