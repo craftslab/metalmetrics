@@ -13,7 +13,7 @@ def test_exception():
 
 def test_bare():
     config = Config()
-    config.inxi_file = os.path.join(os.path.dirname(__file__), "../data/inxi")
+    config.inxi_file = ""
     config.config_file = os.path.join(os.path.dirname(__file__), "../data/config.yml")
 
     try:
