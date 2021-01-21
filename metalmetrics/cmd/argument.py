@@ -21,6 +21,7 @@ class Argument(object):
         self._parser.add_argument(
             "--inxi-file",
             action="store",
+            default="",
             dest="inxi_file",
             help="inxi file (/path/to/inxi)",
             required=False,
