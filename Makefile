@@ -14,6 +14,9 @@ install: py-install
 lint: py-lint
 .PHONY: lint
 
+proto: py-proto
+.PHONY: proto
+
 test: py-test
 .PHONY: test
 
@@ -31,6 +34,9 @@ py-install: FORCE
 
 py-lint: FORCE
 	./script/lint.sh
+
+py-proto: FORCE
+	./script/proto.sh
 
 py-test: FORCE
 	./script/test.sh
