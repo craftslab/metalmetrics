@@ -2,7 +2,7 @@
 
 import argparse
 
-from ..__version__ import __version__
+from metalmetrics.__version__ import __version__
 
 
 class Argument(object):
