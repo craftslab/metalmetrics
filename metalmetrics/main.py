@@ -5,10 +5,10 @@ import sys
 from metalmetrics.cmd.argument import Argument
 from metalmetrics.cmd.banner import BANNER
 from metalmetrics.config.config import Config, ConfigException
+from metalmetrics.flow.flow import Flow, FlowException
 from metalmetrics.logger.logger import Logger
 from metalmetrics.metrics.metrics import Metrics, MetricsException
 from metalmetrics.queue.queue import Queue, QueueException
-from metalmetrics.flow.flow import Flow, FlowException
 
 
 def main():
