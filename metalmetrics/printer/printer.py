@@ -5,21 +5,21 @@ import openpyxl
 import os
 import time
 
-from metalmetrics.config.config import Spec
+from metalmetrics.proto.proto import Format
 from openpyxl.styles import Alignment, Font
 
 
 head = {
-    "A": Spec.CPU,
-    "B": Spec.DISK,
-    "C": Spec.IO,
-    "D": Spec.IP,
-    "E": Spec.KERNEL,
-    "F": Spec.MAC,
-    "G": Spec.NETWORK,
-    "H": Spec.OS,
-    "I": Spec.RAM,
-    "J": Spec.SYSTEM,
+    "A": Format.CPU,
+    "B": Format.DISK,
+    "C": Format.IO,
+    "D": Format.IP,
+    "E": Format.KERNEL,
+    "F": Format.MAC,
+    "G": Format.NETWORK,
+    "H": Format.OS,
+    "I": Format.RAM,
+    "J": Format.SYSTEM,
 }
 
 

@@ -8,11 +8,8 @@ class MetricsAbstract(abc.ABC):
         self._config = config
 
     @abc.abstractmethod
-    def _execution(self):
+    def _execution(self, spec):
         pass
 
     def run(self, spec):
-        _exec = self._execution()
-        if _exec is None or not isinstance(_exec, dict):
-            return None
-        return _exec.get(spec, None)
+        return self._execution(spec)

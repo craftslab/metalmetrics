@@ -2,6 +2,7 @@
 
 from metalmetrics.config.config import Config
 from metalmetrics.metrics.abstract import MetricsAbstract
+from metalmetrics.proto.proto import Format
 
 
 def test_metricsabstract():
@@ -9,14 +10,11 @@ def test_metricsabstract():
         def __init__(self, config):
             super().__init__(config)
 
-        def _execution(self):
-            return {"cpu": "1CPU"}
+        def _execution(self, _):
+            return {Format.CPU: "1 CPU"}
 
     config = Config()
     metrics = MetricsTest(config)
 
-    result = metrics.run("foo")
-    assert result is None
-
-    result = metrics.run("cpu")
+    result = metrics.run(Format.CPU)
     assert result is not None

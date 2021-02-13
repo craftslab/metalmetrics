@@ -4,6 +4,7 @@ import os
 
 from metalmetrics.config.config import Config
 from metalmetrics.metrics.bare import Bare, BareException
+from metalmetrics.proto.proto import Format
 
 
 def test_exception():
@@ -18,13 +19,14 @@ def test_bare():
 
     try:
         bare = Bare(config)
-        _exec = bare._execution()
+        result = bare._execution(Format.CPU)
     except BareException as _:
         assert False
     else:
         assert True
 
-    assert _exec is not None
+    assert result is not None
+    assert len(result) != 0
 
     buf = bare._popen(["ls"])
     assert buf is not None

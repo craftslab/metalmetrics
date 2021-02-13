@@ -3,7 +3,6 @@ kind: worker
 metadata:
   name: metalmetrics
 spec:
-  bare:
   - cpu
   - disk
   - io
@@ -14,5 +13,3 @@ spec:
   - os
   - ram
   - system
-  container:
-  kubernetes:

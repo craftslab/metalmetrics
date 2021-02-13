@@ -9,6 +9,10 @@ from metalmetrics.flow.flow_pb2_grpc import (
     FlowProtoServicer,
 )
 
+MSG_LEN = 2
+MSG_PREFIX = "metalmetrics"
+MSG_SEP = "/"
+
 
 class FlowException(Exception):
     def __init__(self, info):
@@ -27,41 +31,31 @@ class Flow(object):
             raise FlowException("config invalid")
         self._config = config
 
-    def _serve(self, routine, args):
+    def _serve(self, routine):
         server = grpc.server(futures.ThreadPoolExecutor(max_workers=self._workers))
-        add_FlowProtoServicer_to_server(FlowProto(routine, args), server)
+        add_FlowProtoServicer_to_server(FlowProto(routine), server)
         server.add_insecure_port(self._config.listen_url)
         server.start()
         server.wait_for_termination()
 
-    def run(self, routine, args=None):
-        self._serve(routine, args)
+    def run(self, routine):
+        self._serve(routine)
 
 
 class FlowProto(FlowProtoServicer):
-    _len = 3
-    _prefix = "metalmetrics"
-    _sep = "/"
-
-    def __init__(self, routine, args):
-        self._args = args
+    def __init__(self, routine):
         self._routine = routine
 
-    def _parse(self, message):
-        if len(message) == 0 or not message.startswith(self._prefix + self._sep):
-            return None, None
-        msg = self._sep.split(message)
-        if len(msg) != self._len:
-            return None, None
-        return msg[1], msg[2]
-
     def SendFlow(self, request, _):
-        host, spec = self._parse(request.message)
-        if host is None or spec is None:
+        if len(request.message) == 0 or not request.message.startswith(
+            MSG_PREFIX + MSG_SEP
+        ):
             return FlowReply(message="")
-        buf = self._routine(host=host, spec=spec).get(host, None)
-        if buf is not None:
-            message = buf.get(spec, "")
+        msg = MSG_SEP.split(request.message)
+        if len(msg) == 1:
+            buf = self._routine()
+        elif len(msg) == MSG_LEN:
+            buf = self._routine(msg[1])
         else:
-            message = ""
-        return FlowReply(message=message)
+            buf = ""
+        return FlowReply(message=buf)

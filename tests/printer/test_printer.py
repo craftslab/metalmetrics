@@ -2,8 +2,8 @@
 
 import os
 
-from metalmetrics.config.config import Spec
 from metalmetrics.printer.printer import Printer, PrinterException
+from metalmetrics.proto.proto import Format
 
 
 def test_exception():
@@ -14,16 +14,16 @@ def test_exception():
 def test_printer():
     buf = {
         "bare": {
-            Spec.CPU: "1CPU",
-            Spec.DISK: "10TB HDD",
-            Spec.IO: "10.0kB_read/s,10.0kB_wrtn/s",
-            Spec.IP: "127.0.0.1",
-            Spec.KERNEL: "5.4.0-54-generic",
-            Spec.MAC: "01:02:03:04:05:06",
-            Spec.NETWORK: "10Mbps",
-            Spec.OS: "18.04.1-Ubuntu",
-            Spec.RAM: "8GB",
-            Spec.SYSTEM: "System Information",
+            Format.CPU: "1 CPU",
+            Format.DISK: "10TB HDD",
+            Format.IO: "10.0kB_read/s,10.0kB_wrtn/s",
+            Format.IP: "127.0.0.1",
+            Format.KERNEL: "5.4.0-54-generic",
+            Format.MAC: "01:02:03:04:05:06",
+            Format.NETWORK: "10Mbps",
+            Format.OS: "18.04.1-Ubuntu",
+            Format.RAM: "8GB",
+            Format.SYSTEM: "System Information",
         }
     }
 

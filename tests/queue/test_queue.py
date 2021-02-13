@@ -6,7 +6,7 @@ from metalmetrics.queue.queue import Queue, QueueException
 from metalmetrics.queue.queue import Worker, WorkerException
 
 
-def routine():
+def routine(_):
     pass
 
 
@@ -23,7 +23,14 @@ def test_queue():
     else:
         assert True
 
-    args = ["event"]
+    try:
+        q.run(routine)
+    except QueueException as _:
+        assert False
+    else:
+        assert True
+
+    args = "args"
 
     try:
         q.run(routine, args)
@@ -40,7 +47,7 @@ def test_workerexception():
 
 def test_worker():
     _queue = queue.Queue(1)
-    _queue.put((routine, "routine"))
+    _queue.put((routine, "args"))
 
     try:
         _ = Worker(_queue=_queue)

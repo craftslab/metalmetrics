@@ -15,19 +15,6 @@ class MetaData:
     NAME = "name"
 
 
-class Spec:
-    CPU = "cpu"
-    DISK = "disk"
-    IO = "io"
-    IP = "ip"
-    KERNEL = "kernel"
-    MAC = "mac"
-    NETWORK = "network"
-    OS = "os"
-    RAM = "ram"
-    SYSTEM = "system"
-
-
 class ConfigException(Exception):
     def __init__(self, info):
         super().__init__(self)

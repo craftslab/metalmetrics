@@ -8,10 +8,10 @@ from flow_pb2_grpc import FlowProtoStub
 
 
 def run():
-    channel = grpc.insecure_channel("127.0.0.1:9091")
+    channel = grpc.insecure_channel("127.0.0.1:9090")
     stub = FlowProtoStub(channel)
 
-    response = stub.SendFlow(FlowRequest(message="metalmetrics/bare/cpu"))
+    response = stub.SendFlow(FlowRequest(message="metalmetrics/cpu"))
     print("client received: " + response.message)
 
 

@@ -5,7 +5,7 @@ import psutil
 import socket
 import subprocess
 
-from metalmetrics.config.config import Spec
+from metalmetrics.proto.proto import Format
 from metalmetrics.metrics.abstract import MetricsAbstract
 
 
@@ -22,20 +22,20 @@ class Bare(MetricsAbstract):
     def __init__(self, config):
         super().__init__(config)
         self._exec = {
-            Spec.CPU: self._cpu(),
-            Spec.DISK: self._disk(),
-            Spec.IO: self._io(),
-            Spec.IP: self._ip(),
-            Spec.KERNEL: self._kernel(),
-            Spec.MAC: self._mac(),
-            Spec.NETWORK: self._network(),
-            Spec.OS: self._os(),
-            Spec.RAM: self._ram(),
-            Spec.SYSTEM: self._system(),
+            Format.CPU: self._cpu,
+            Format.DISK: self._disk,
+            Format.IO: self._io,
+            Format.IP: self._ip,
+            Format.KERNEL: self._kernel,
+            Format.MAC: self._mac,
+            Format.NETWORK: self._network,
+            Format.OS: self._os,
+            Format.RAM: self._ram,
+            Format.SYSTEM: self._system,
         }
 
-    def _execution(self):
-        return self._exec
+    def _execution(self, spec):
+        return self._exec[spec]()
 
     def _popen(self, cmd, stdin=None):
         return subprocess.Popen(

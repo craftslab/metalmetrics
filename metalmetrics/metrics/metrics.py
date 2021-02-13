@@ -2,8 +2,6 @@
 
 from metalmetrics.config.config import ConfigFile
 from metalmetrics.metrics.bare import Bare
-from metalmetrics.metrics.container import Container
-from metalmetrics.metrics.kubernetes import Kubernetes
 from metalmetrics.printer.printer import Printer
 
 
@@ -31,34 +29,21 @@ class Metrics(object):
 
     def _instance(self):
         buf = {}
-        if Bare.__name__.lower() in self._spec.keys():
-            buf[Bare.__name__.lower()] = Bare(self._config)
-        if Container.__name__.lower() in self._spec.keys():
-            buf[Container.__name__.lower()] = Container(self._config)
-        if Kubernetes.__name__.lower() in self._spec.keys():
-            buf[Kubernetes.__name__.lower()] = Kubernetes(self._config)
+        buf[Bare.__name__.lower()] = Bare(self._config)
         return buf
 
-    def routine(self, host=None, spec=None):
-        hosts = []
-        if host is not None and isinstance(host, str):
-            hosts.append(host)
-        else:
-            hosts = self._instance().keys()
+    def routine(self, spec=None):
         specs = []
-        if spec is not None and isinstance(spec, str):
-            specs.append(spec)
+        if spec is None or len(spec) == 0:
+            specs.extend(self._spec)
         else:
-            for item in hosts:
-                buf = self._spec.get(item, [])
-                if buf is not None and len(buf) > 0:
-                    specs.extend(buf)
+            specs.append(spec)
         buf = {}
-        for h in hosts:
+        for key, val in self._instance().items():
             b = {}
-            for s in specs:
-                b[s] = self._instance()[h].run(s)
-                buf[h] = b
+            for item in specs:
+                b[item] = val.run(item)
+            buf[key] = b
         if len(self._config.output_file) != 0:
             self._dump(buf)
         return buf
