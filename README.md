@@ -107,16 +107,17 @@ kind: worker
 metadata:
   name: metalmetrics
 spec:
-  - cpu
-  - disk
-  - io
-  - ip
-  - kernel
-  - mac
-  - network
-  - os
-  - ram
-  - system
+  metrics:
+    - cpu
+    - disk
+    - io
+    - ip
+    - kernel
+    - mac
+    - network
+    - os
+    - ram
+    - system
 ```
 
 

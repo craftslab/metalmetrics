@@ -20,9 +20,12 @@ class Metrics(object):
             raise MetricsException("config invalid")
         self._config = config
         self._instance = Bare(self._config)
-        self._spec = config.config_file.get(ConfigFile.SPEC, None)
-        if self._spec is None:
+        buf = config.config_file.get(ConfigFile.SPEC, None)
+        if buf is None:
             raise MetricsException("spec invalid")
+        self._spec = buf.get(Metrics.__name__.lower(), None)
+        if self._spec is None:
+            raise MetricsException("metrics invalid")
 
     def _dump(self, data):
         printer = Printer()
