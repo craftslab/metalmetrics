@@ -19,6 +19,7 @@ class Metrics(object):
         if config is None:
             raise MetricsException("config invalid")
         self._config = config
+        self._instance = Bare(self._config)
         self._spec = config.config_file.get(ConfigFile.SPEC, None)
         if self._spec is None:
             raise MetricsException("spec invalid")
@@ -27,11 +28,6 @@ class Metrics(object):
         printer = Printer()
         printer.run(data=data, name=self._config.output_file, append=False)
 
-    def _instance(self):
-        buf = {}
-        buf[Bare.__name__.lower()] = Bare(self._config)
-        return buf
-
     def routine(self, spec=None):
         specs = []
         if spec is None or len(spec) == 0:
@@ -39,11 +35,10 @@ class Metrics(object):
         else:
             specs.append(spec)
         buf = {}
-        for key, val in self._instance().items():
-            b = {}
-            for item in specs:
-                b[item] = val.run(item)
-            buf[key] = b
+        ret = {}
+        for item in specs:
+            ret[item] = self._instance.run(item)
+        buf[Metrics.__name__.lower()] = ret
         if len(self._config.output_file) != 0:
             self._dump(buf)
         return buf

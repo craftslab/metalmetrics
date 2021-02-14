@@ -31,8 +31,6 @@ def test_metrics():
     else:
         assert True
 
-    assert metrics._instance() is not None
-
     try:
         buf = metrics.routine()
     except MetricsException as _:
@@ -50,8 +48,8 @@ def test_metrics():
         assert True
 
     assert buf is not None
-    assert buf["bare"] is not None
-    assert buf["bare"][Format.CPU] is not None
+    assert buf["metrics"] is not None
+    assert buf["metrics"][Format.CPU] is not None
 
     assert os.path.isfile(config.output_file)
     os.remove(config.output_file)

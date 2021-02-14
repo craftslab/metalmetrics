@@ -13,7 +13,7 @@ def test_exception():
 
 def test_printer():
     buf = {
-        "bare": {
+        "metrics": {
             Format.CPU: "1 CPU",
             Format.DISK: "10TB HDD",
             Format.IO: "10.0kB_read/s,10.0kB_wrtn/s",
