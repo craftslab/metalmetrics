@@ -9,8 +9,7 @@ from metalmetrics.flow.flow_pb2_grpc import (
     FlowProtoServicer,
 )
 
-MSG_LEN = 2
-MSG_PREFIX = "metalmetrics"
+MSG_PREFIX = "metalmetrics/metrics"
 MSG_SEP = "/"
 
 
@@ -52,10 +51,10 @@ class FlowProto(FlowProtoServicer):
         ):
             return FlowReply(message="")
         msg = MSG_SEP.split(request.message)
-        if len(msg) == 1:
+        if len(msg) == len(MSG_SEP.split(MSG_PREFIX)):
             buf = self._routine()
-        elif len(msg) == MSG_LEN:
-            buf = self._routine(msg[1])
+        elif len(msg) == len(MSG_SEP.split(MSG_PREFIX) + 1):
+            buf = self._routine(msg[-1])
         else:
             buf = ""
         return FlowReply(message=buf)

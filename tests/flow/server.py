@@ -14,7 +14,7 @@ from concurrent import futures
 
 class FlowProto(FlowProtoServicer):
     def SendFlow(self, request, _):
-        if request.message == "metalmetrics/cpu":
+        if request.message == "metalmetrics/metrics/cpu":
             return FlowReply(message="1 CPU")
         else:
             return FlowReply(message="invalid")
