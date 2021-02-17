@@ -46,9 +46,7 @@ class FlowProto(FlowProtoServicer):
         self._routine = routine
 
     def SendFlow(self, request, _):
-        if len(request.message) == 0 or not request.message.startswith(
-            MSG_PREFIX + MSG_SEP
-        ):
+        if len(request.message) == 0 or not request.message.startswith(MSG_PREFIX):
             return FlowReply(message="")
         msg = MSG_SEP.split(request.message)
         if len(msg) == len(MSG_SEP.split(MSG_PREFIX)):
