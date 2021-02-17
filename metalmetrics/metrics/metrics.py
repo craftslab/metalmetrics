@@ -41,7 +41,7 @@ class Metrics(object):
         ret = {}
         for item in specs:
             ret[item] = self._instance.run(item)
-        buf[Metrics.__name__.lower()] = ret
+        buf[Metrics.__name__.lower()] = [ret]
         if len(self._config.output_file) != 0:
             self._dump(buf)
         return buf

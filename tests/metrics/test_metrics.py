@@ -49,7 +49,6 @@ def test_metrics():
 
     assert buf is not None
     assert buf["metrics"] is not None
-    assert buf["metrics"][Format.CPU] is not None
 
     assert os.path.isfile(config.output_file)
     os.remove(config.output_file)

@@ -13,18 +13,32 @@ def test_exception():
 
 def test_printer():
     buf = {
-        "metrics": {
-            Format.CPU: "1 CPU",
-            Format.DISK: "10TB HDD",
-            Format.IO: "10.0kB_read/s,10.0kB_wrtn/s",
-            Format.IP: "127.0.0.1",
-            Format.KERNEL: "5.4.0-54-generic",
-            Format.MAC: "01:02:03:04:05:06",
-            Format.NETWORK: "10Mbps",
-            Format.OS: "18.04.1-Ubuntu",
-            Format.RAM: "8GB",
-            Format.SYSTEM: "System Information",
-        }
+        "metrics": [
+            {
+                Format.CPU: "1 CPU",
+                Format.DISK: "10TB HDD",
+                Format.IO: "10.0kB_read/s,10.0kB_wrtn/s",
+                Format.IP: "127.0.0.1",
+                Format.KERNEL: "5.4.0-54-generic",
+                Format.MAC: "01:02:03:04:05:06",
+                Format.NETWORK: "10Mbps",
+                Format.OS: "18.04.1-Ubuntu",
+                Format.RAM: "8GB",
+                Format.SYSTEM: "System Information",
+            },
+            {
+                Format.CPU: "1 CPU",
+                Format.DISK: "10TB HDD",
+                Format.IO: "10.0kB_read/s,10.0kB_wrtn/s",
+                Format.IP: "127.0.0.2",
+                Format.KERNEL: "5.4.0-54-generic",
+                Format.MAC: "01:02:03:04:05:07",
+                Format.NETWORK: "10Mbps",
+                Format.OS: "18.04.1-Ubuntu",
+                Format.RAM: "8GB",
+                Format.SYSTEM: "System Information",
+            },
+        ]
     }
 
     printer = Printer()
