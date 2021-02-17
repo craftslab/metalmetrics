@@ -9,6 +9,8 @@ from metalmetrics.flow.flow_pb2_grpc import (
     FlowProtoServicer,
 )
 
+MAX_WORKERS = 10
+
 MSG_PREFIX = "metalmetrics/metrics"
 MSG_SEP = "/"
 
@@ -23,15 +25,13 @@ class FlowException(Exception):
 
 
 class Flow(object):
-    _workers = 10
-
     def __init__(self, config):
         if config is None:
             raise FlowException("config invalid")
         self._config = config
 
     def _serve(self, routine):
-        server = grpc.server(futures.ThreadPoolExecutor(max_workers=self._workers))
+        server = grpc.server(futures.ThreadPoolExecutor(max_workers=MAX_WORKERS))
         add_FlowProtoServicer_to_server(FlowProto(routine), server)
         server.add_insecure_port(self._config.listen_url)
         server.start()
