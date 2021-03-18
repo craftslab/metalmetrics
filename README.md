@@ -141,3 +141,4 @@ Project License can be found [here](LICENSE).
 - [inxi](https://github.com/smxi/inxi)
 - [python-diamond](https://github.com/python-diamond/Diamond)
 - [sysperf](https://github.com/iandk/sysperf)
+- [sysstat](https://github.com/sysstat/sysstat)
