@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import grpc
+import json
 
 from concurrent import futures
 from metalmetrics.flow.flow_pb2 import FlowReply
@@ -54,5 +55,5 @@ class FlowProto(FlowProtoServicer):
         elif len(msg) == len(MSG_PREFIX.split(MSG_SEP) + 1):
             buf = self._routine(msg[-1])
         else:
-            buf = ""
-        return FlowReply(message=buf)
+            buf = {}
+        return FlowReply(message=json.dumps(buf))
