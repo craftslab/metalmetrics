@@ -20,6 +20,7 @@ head = {
     "H": Format.OS,
     "I": Format.RAM,
     "J": Format.SYSTEM,
+    "K": Format.USERS,
 }
 
 

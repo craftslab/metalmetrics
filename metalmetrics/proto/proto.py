@@ -13,6 +13,7 @@
   "os": "18.04.1-Ubuntu",
   "ram": "8GB",
   "system": "System Information",
+  "users": "user1,user2",
 }
 """
 
@@ -28,3 +29,4 @@ class Format:
     OS = "os"
     RAM = "ram"
     SYSTEM = "system"
+    USERS = "users"

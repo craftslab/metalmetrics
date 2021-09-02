@@ -118,6 +118,7 @@ spec:
     - os
     - ram
     - system
+    - users
 ```
 
 

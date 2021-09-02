@@ -25,6 +25,7 @@ def test_printer():
                 Format.OS: "18.04.1-Ubuntu",
                 Format.RAM: "8GB",
                 Format.SYSTEM: "System Information",
+                Format.USERS: "user1",
             },
             {
                 Format.CPU: "1 CPU",
@@ -37,6 +38,7 @@ def test_printer():
                 Format.OS: "18.04.1-Ubuntu",
                 Format.RAM: "8GB",
                 Format.SYSTEM: "System Information",
+                Format.USERS: "user1,user2",
             },
         ]
     }

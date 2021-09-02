@@ -2,6 +2,7 @@
 
 import os
 import psutil
+import pwd
 import socket
 import subprocess
 
@@ -32,6 +33,7 @@ class Bare(MetricsAbstract):
             Format.OS: self._os,
             Format.RAM: self._ram,
             Format.SYSTEM: self._system,
+            Format.USERS: self._users,
         }
 
     def _execution(self, spec):
@@ -154,3 +156,13 @@ class Bare(MetricsAbstract):
             if proc.returncode != 0:
                 return "invalid"
         return out.strip().decode("utf-8")
+
+    def _users(self):
+        """
+        getent passwd {1000..60000}
+        """
+        out = []
+        for p in pwd.getpwall():
+            if 1000 <= int(p[2]) <= 60000:
+                out.append(p[0])
+        return ",".join(out)

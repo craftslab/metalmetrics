@@ -70,3 +70,7 @@ def test_bare():
     buf = bare._system()
     print(buf)
     assert len(buf) != 0
+
+    buf = bare._users()
+    print(buf)
+    assert len(buf) != 0
