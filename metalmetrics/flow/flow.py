@@ -52,7 +52,7 @@ class FlowProto(FlowProtoServicer):
         msg = request.message.split(MSG_SEP)
         if len(msg) == len(MSG_PREFIX.split(MSG_SEP)):
             buf = self._routine()
-        elif len(msg) == len(MSG_PREFIX.split(MSG_SEP) + 1):
+        elif len(msg) == len(MSG_PREFIX.split(MSG_SEP)) + 1:
             buf = self._routine(msg[-1])
         else:
             buf = {}
